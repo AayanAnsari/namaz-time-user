@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Namaz Time</string>
+    <string name="splash_message">Track Nearby Masjid Namaz Times</string>
+    <string name="location_btn">Use Current Location</string>
+    <string name="location_skip">Skip</string>
+
+    <string name="select_language">Choose Language</string>
+    <string name="english">English</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="urdu">اردو</string>
+
+    <!--    Main Activity Strings-->
+
+    <string name="location_city">Location City</string>
+    <string name="now">Now</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="fajr">Fajr</string>
+    <string name="zuhar">Zuhar</string>
+    <string name="asar">Asar</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+    <string name="near_by_masjid">Near By Masjid</string>
+
+    <!--    Main Activity Strings-->
+
+    <!--    Menu Strings-->
+
+    <string name="change_language">Change Language</string>
+    <string name="rate_app">Rate the app</string>
+    <string name="share_app">Share the app</string>
+    <string name="our_apps">Our Apps</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_app">About the app</string>
+
+    <!--    Menu Strings-->
+
+    <string name="navigation_open">Open Navigation Drawer</string>
+    <string name="navigation_close">Close Navigation Drawer</string>
+
+    <!--    Search Activity Strings-->
+    <string name="masjids">Masjids</string>
+
+
+    <!--    Search Activity Strings-->
+
+</resources>
