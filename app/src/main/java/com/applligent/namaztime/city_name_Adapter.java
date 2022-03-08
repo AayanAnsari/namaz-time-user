@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -60,6 +62,13 @@ public class city_name_Adapter extends RecyclerView.Adapter<city_name_Adapter.Vi
         holder.maghrib_timeTV.setText(maghrib_time);
         holder.ishaTV.setText(A_isha);
         holder.isha_timeTV.setText(isha_time);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(context, "clicked on -" + masjid_name, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
@@ -83,6 +92,7 @@ public class city_name_Adapter extends RecyclerView.Adapter<city_name_Adapter.Vi
         private TextView maghrib_timeTV;
         private TextView ishaTV;
         private TextView isha_timeTV;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +110,7 @@ public class city_name_Adapter extends RecyclerView.Adapter<city_name_Adapter.Vi
             maghrib_timeTV = itemView.findViewById(R.id.maghrib_time);
             ishaTV = itemView.findViewById(R.id.isha_namaz);
             isha_timeTV = itemView.findViewById(R.id.isha_time);
+            cardView = itemView.findViewById(R.id.masjid_cardview);
         }
     }
 }
