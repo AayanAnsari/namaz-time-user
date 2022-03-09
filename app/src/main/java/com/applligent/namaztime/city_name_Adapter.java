@@ -1,6 +1,7 @@
 package com.applligent.namaztime;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,16 @@ public class city_name_Adapter extends RecyclerView.Adapter<city_name_Adapter.Vi
             @Override
             public void onClick(View view) {
 //                Toast.makeText(context, "clicked on -" + masjid_name, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,AlarmScreen.class);
+                    intent.putExtra("Fajr",fajr_time);
+                    intent.putExtra("Zuhar",zuhar_time);
+                    intent.putExtra("Asar",asar_time);
+                    intent.putExtra("Maghrib",maghrib_time);
+                    intent.putExtra("Isha",isha_time);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(intent);
 
             }
         });

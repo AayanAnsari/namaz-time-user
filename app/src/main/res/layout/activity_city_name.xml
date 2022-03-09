@@ -15,16 +15,6 @@
 
 
 
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        app:itemTextAppearance="@style/NavDrawerTextStyle"-->
-<!--        android:id="@+id/navigation_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:headerLayout="@layout/menu_header"-->
-<!--        app:menu="@menu/slidemenu"-->
-<!--        android:layout_gravity="start"-->
-<!--        />-->
-
     <RelativeLayout
         android:id="@+id/RL_1st_bg"
         android:layout_width="match_parent"
@@ -195,6 +185,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </FrameLayout>
+
+<!--    navigation View -->
+
+
+    <com.google.android.material.navigation.NavigationView
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/slidemenu"
+        android:layout_gravity="start"
+        />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

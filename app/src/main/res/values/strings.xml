@@ -3,6 +3,7 @@
     <string name="splash_message">Track Nearby Masjid Namaz Times</string>
     <string name="location_btn">Use Current Location</string>
     <string name="location_skip">Skip</string>
+    <string name="save_btn">Save</string>
 
     <string name="select_language">Choose Language</string>
     <string name="english">English</string>
@@ -42,5 +43,32 @@
 
 
     <!--    Search Activity Strings-->
+
+    <!--    Alarm Screen-->
+    <string name="alarm">Alarm</string>
+    <string name="title_activity_change_location">Change_Location</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!--    Location Sceen-->
+
+    <string name="manually_location">Enter Your Location Manually</string>
+    <string name="current_location">Use Current Location</string>
+
+    <!--    about app dialogue-->
+    <string name="aboutapp_dialog_heading">About Namaz Time</string>
+    <string name="aboutapp_dialog_text">Ut placet, inquam tum dicere exorsus est primum igitur, quid malum, sensu iudicari, sed ipsius honestatis decore laudandis, id ne ferae quidem exercitus quid ex ea commodi consequatur? quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut ratione intellegi posse et expedita distinctio nam libero.</string>
+    <string name="Got_it">Got it</string>
+
+<!--    Contact Us Screen-->
+    <string name="contactus">Contact Us</string>
+    <string name="website">Website</string>
+    <string name="website_link">www.applligent.com</string>
 
 </resources>

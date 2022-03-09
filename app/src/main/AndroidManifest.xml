@@ -10,6 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PrayerTimeUser">
         <activity
+            android:name=".Contact_Us"
+            android:exported="false" />
+        <activity
+            android:name=".Change_Location"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.Change_Location"
+            android:exported="false"
+            android:label="@string/title_activity_change_location" />
+        <activity
             android:name=".AlarmScreen"
             android:exported="false" />
         <activity

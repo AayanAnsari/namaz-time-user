@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
+    tools:context=".LocationActivity"
     android:background="@drawable/green_background">
 
     <RelativeLayout
@@ -72,13 +72,13 @@
         android:textSize="14sp"
         android:textStyle="italic" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:src="@drawable/bottom_img"
+        android:background="@drawable/bottom_img"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-        />
+        ></RelativeLayout>
 
 
 </RelativeLayout>

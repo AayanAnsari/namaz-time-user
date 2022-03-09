@@ -1,5 +1,6 @@
 package com.applligent.namaztime;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,14 +9,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,6 +75,53 @@ public class city_name extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.change_language_m:
+                        Intent intent1 = new Intent(city_name.this,SelectLanguage.class);
+                        startActivity(intent1);
+                        break;
+
+                    case R.id.rate_app_m:
+                        Toast.makeText(city_name.this, "Rate App", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.share_app_m:
+                        drawerLayout.close();
+                        shareApp();
+                        break;
+
+                    case R.id.our_apps_m:
+                        Toast.makeText(city_name.this, "Our Apps", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.contact_us_m:
+                        Intent intent5 = new Intent(city_name.this,Contact_Us.class);
+                        startActivity(intent5);
+                        break;
+
+                    case R.id.about_m:
+//                        Toast.makeText(city_name.this, "About App", Toast.LENGTH_SHORT).show();
+                        drawerLayout.close();
+                        showAboutAppDialog();
+                        break;
+
+                }
+                return true;
+            }
+        });
+        //drawer closer button
+        View header = navigationView.getHeaderView(0);
+        ImageView closedrawer_btn = header.findViewById(R.id.black_menu_ic);
+        closedrawer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.close();
+            }
+        });
 
         //dropDown
         textInputLayout = findViewById(R.id.drop_down_menu);
@@ -107,6 +159,8 @@ public class city_name extends AppCompatActivity {
     }
 
 
+
+
     private void initData() {
 
         masjidlist = new ArrayList<city_name_ModelClass>();
@@ -121,7 +175,7 @@ public class city_name extends AppCompatActivity {
         masjid1.setZuhar("Zuhar");
         masjid1.setZuhartime("01:00 PM");
         masjid1.setAsar("Asar");
-        masjid1.setAsartime("05:00 pm");
+        masjid1.setAsartime("05:00 PM");
         masjid1.setMaghrib("Maghrib");
         masjid1.setMaghribtime("06:30 PM");
         masjid1.setIsha("Isha");
@@ -138,7 +192,7 @@ public class city_name extends AppCompatActivity {
         masjid2.setZuhar("Zuhar");
         masjid2.setZuhartime("01:00 PM");
         masjid2.setAsar("Asar");
-        masjid2.setAsartime("05:00 pm");
+        masjid2.setAsartime("05:00 PM");
         masjid2.setMaghrib("Maghrib");
         masjid2.setMaghribtime("06:30 PM");
         masjid2.setIsha("Isha");
@@ -155,7 +209,7 @@ public class city_name extends AppCompatActivity {
         masjid3.setZuhar("Zuhar");
         masjid3.setZuhartime("01:00 PM");
         masjid3.setAsar("Asar");
-        masjid3.setAsartime("05:00 pm");
+        masjid3.setAsartime("05:00 PM");
         masjid3.setMaghrib("Maghrib");
         masjid3.setMaghribtime("06:30 PM");
         masjid3.setIsha("Isha");
@@ -172,7 +226,7 @@ public class city_name extends AppCompatActivity {
         masjid4.setZuhar("Zuhar");
         masjid4.setZuhartime("01:00 PM");
         masjid4.setAsar("Asar");
-        masjid4.setAsartime("05:00 pm");
+        masjid4.setAsartime("05:00 PM");
         masjid4.setMaghrib("Maghrib");
         masjid4.setMaghribtime("06:30 PM");
         masjid4.setIsha("Isha");
@@ -190,7 +244,7 @@ public class city_name extends AppCompatActivity {
         masjid5.setZuhar("Zuhar");
         masjid5.setZuhartime("01:00 PM");
         masjid5.setAsar("Asar");
-        masjid5.setAsartime("05:00 pm");
+        masjid5.setAsartime("05:00 PM");
         masjid5.setMaghrib("Maghrib");
         masjid5.setMaghribtime("06:30 PM");
         masjid5.setIsha("Isha");
@@ -216,6 +270,39 @@ public class city_name extends AppCompatActivity {
 
     }
 
+//    About App Dialog
+
+    private void showAboutAppDialog() {
+        Dialog customDialog = new Dialog(this);
+        customDialog.setContentView(R.layout.about_app_dialogue);
+        customDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        customDialog.setCancelable(false);
+
+        Button Got_it_btn = customDialog.findViewById(R.id.got_it);
+        Got_it_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.show();
+
+    }
+
+//    share App
+    private void shareApp() {
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String shareBody = "Download -https://play.google.com/store/apps/details?id=com.whatsapp&hl=en";
+        String shareSub = "Whatsapp apk";
+
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+        shareIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+
+        startActivity(Intent.createChooser(shareIntent,"Share Via"));
+
+    }
 
 
 }

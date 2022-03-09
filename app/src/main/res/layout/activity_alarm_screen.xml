@@ -1,9 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlarmScreen">
+    tools:context=".AlarmScreen"
+    android:background="@drawable/green_background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/top_Rl"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@drawable/bg_masque_2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/alarm"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/alarm_RL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_Rl"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/top_corner_radius"
+       >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+
+        <RelativeLayout
+            android:id="@+id/RL_for_fajr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/only_bottom_border"
+            >
+
+            <TextView
+                android:id="@+id/alarm_fajr_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="12:00 AM"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/alarm_fajr_time"
+                android:layout_marginBottom="14dp"
+                android:text="@string/fajr"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_for_zuhar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/only_bottom_border"
+            >
+
+            <TextView
+                android:id="@+id/alarm_zuhar_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00 PM"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/alarm_zuhar_time"
+                android:layout_marginBottom="14dp"
+                android:text="@string/zuhar"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_for_asar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/only_bottom_border"
+           >
+
+            <TextView
+                android:id="@+id/alarm_asar_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00 PM"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/alarm_asar_time"
+                android:layout_marginBottom="14dp"
+                android:text="@string/asar"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_for_maghrib"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/only_bottom_border"
+        >
+
+            <TextView
+                android:id="@+id/alarm_maghrib_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00 PM"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/alarm_maghrib_time"
+                android:layout_marginBottom="14dp"
+                android:text="@string/maghrib"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_for_isha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/only_bottom_border"
+           >
+
+            <TextView
+                android:id="@+id/alarm_isha_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00 PM"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/alarm_isha_time"
+                android:layout_marginBottom="14dp"
+                android:text="@string/isha"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track"
+                android:layout_marginRight="10dp"
+                />
+
+
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/save_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_btn"
+                    android:text="@string/save_btn"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+     </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contact_Us"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/contact_us_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/contactus"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_us_heading"
+        android:layout_marginTop="50dp"
+        android:text="@string/website"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/website_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/website"
+        android:background="@drawable/only_bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/website_link"
+        android:textColor="@color/link_blue"
+        android:textSize="18sp" />
+
+
+
+
+
+
+
+</RelativeLayout>

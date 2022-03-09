@@ -9,21 +9,12 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
-    <com.google.android.material.navigation.NavigationView
-        app:itemTextAppearance="@style/NavDrawerTextStyle"
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/menu_header"
-        app:menu="@menu/slidemenu"
-        android:layout_gravity="start"
-        />
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/green_background">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,6 +34,7 @@
                 android:textSize="18sp" />
 
             <ImageView
+                android:id="@+id/test_Btn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"
@@ -51,6 +43,7 @@
 
 
         </androidx.appcompat.widget.Toolbar>
+
 
         <RelativeLayout
             android:id="@+id/relative_layout_2"
@@ -311,7 +304,19 @@
         </LinearLayout>
 
 
+
+
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/slidemenu"
+        android:layout_gravity="start"
+        />
 
 
 

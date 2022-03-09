@@ -3,19 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/black_menu_icon.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/button_border_radius.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/cardview_border.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/dropdown_bg.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/green_bg_details.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/green_btn.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/masjid_details_bg.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/only_bottom_border.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/sel_language_btn.xml" value="0.1465" />
+        <entry key="app/src/main/res/drawable/thumb.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/top_corner_radius.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/track.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/tv_border.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/white_button.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/about_app_dialogue.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_alarm_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_change_location.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_city_name.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_contact_us.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_location.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_select_language.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_selected_masjid.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_spinner_test.xml" value="0.25" />
@@ -23,7 +31,7 @@
         <entry key="app/src/main/res/layout/item_list_dd.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_text_dd.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/layout/masjid_details_design.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/menu_header.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/menu_header.xml" value="0.2" />
         <entry key="app/src/main/res/layout/test.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/menu/slidemenu.xml" value="0.25" />
       </map>
