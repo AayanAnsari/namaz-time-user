@@ -72,7 +72,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/currentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/now_namaz_name"
@@ -82,10 +82,10 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/full_date"
+                android:id="@+id/MandYname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/date"
+                android:layout_below="@id/currentDate"
                 android:text="June 2021"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -172,10 +172,11 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/time_of_fajr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="05:00 AM"
+                            android:text="--:-- AM"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -200,10 +201,11 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/time_of_zuhar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="01:00 PM"
+                            android:text="--:-- PM"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -224,10 +226,11 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/time_of_asar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="05:15 PM"
+                            android:text="--:-- PM"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -248,10 +251,11 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/time_of_maghrib"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="07:00 PM"
+                            android:text="--:-- PM"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -272,10 +276,11 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/time_of_isha"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="08:30 AM"
+                            android:text="--:-- AM"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 

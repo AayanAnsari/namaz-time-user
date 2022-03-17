@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -152,6 +154,11 @@ public class city_name extends AppCompatActivity {
 
 
 
+//        get device id and fcm token
+
+        String deviceId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+//        Log.i("TAG", "onCreate: sdasd"+deviceId);
+        
 
 
 

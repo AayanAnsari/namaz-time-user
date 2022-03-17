@@ -12,16 +12,17 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/clear_ic" />
+
     <EditText
         android:id="@+id/input_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/close_location_screen"
         android:layout_marginTop="40dp"
+        android:background="@drawable/only_bottom_border"
         android:hint="@string/manually_location"
-        android:textSize="18sp"
         android:padding="10dp"
-        android:background="@drawable/only_bottom_border"/>
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:id="@+id/use_currrent_location"
@@ -42,9 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/current_location_ic"
-            android:textColor="@color/black"
             android:text="@string/current_location"
-            android:textSize="18sp"/>
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
 
 
