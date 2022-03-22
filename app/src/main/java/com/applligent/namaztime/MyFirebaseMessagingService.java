@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,7 +22,13 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class MyFirebaseMessagingService extends FirebaseMessagingService{
+
+    @Override
+    public void onNewToken(String s) {
+
+        Log.i("TAG", "onNewToken: asdfsdf"+s);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override

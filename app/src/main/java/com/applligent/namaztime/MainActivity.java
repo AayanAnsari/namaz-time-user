@@ -182,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+
 //        Retrofit Part
         fajrTV = findViewById(R.id.time_of_fajr);
         zuharTV = findViewById(R.id.time_of_zuhar);
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                     }else {
                         if (h1<10)
                         {
-                            fajrTV.setText("0"+h1+":"+m1+"PM");
+                            fajrTV.setText("0"+h1+":"+m1+"AM");
                         }else {
                             fajrTV.setText(h1 + ":" + m1 + "AM");
                         }
@@ -357,6 +359,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+
+
+
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {

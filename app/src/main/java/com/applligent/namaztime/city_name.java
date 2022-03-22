@@ -16,19 +16,37 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applligent.namaztime.cityNameApi.CityAdapter;
+import com.applligent.namaztime.cityNameApi.CityApi;
+import com.applligent.namaztime.cityNameApi.CityApiInterface;
+import com.applligent.namaztime.cityNameApi.RowItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class city_name extends AppCompatActivity {
 
@@ -39,20 +57,26 @@ public class city_name extends AppCompatActivity {
     Toolbar toolbar;
     TextView TB_title;
 
+
   //    dropdown-->
     TextInputLayout textInputLayout;
     AutoCompleteTextView autoCompleteTextView;
 
-    ArrayList<String> arrayList_city;
-    ArrayAdapter<String> arrayAdapter_city;
+//    ArrayList<String> arrayList_city;
+//    ArrayAdapter<String> arrayAdapter_city;
+
+    List<RowItem> citynamelist = new ArrayList<>();
+    CityAdapter cityArrayAdapter;
 
     // Recycler View for Masjid Details ---->
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     List<city_name_ModelClass> masjidlist;
     city_name_Adapter adapter;
+    Spinner citySpinnner;
 
 
+    String deviceToken;
 
 
     @Override
@@ -125,30 +149,39 @@ public class city_name extends AppCompatActivity {
             }
         });
 
-        //dropDown
+
+
+//        //dropDown
         textInputLayout = findViewById(R.id.drop_down_menu);
         autoCompleteTextView = findViewById(R.id.drop_citynames);
 
-        arrayList_city = new ArrayList<>();
-        arrayList_city.add("Ujjain");
-        arrayList_city.add("Ratlam");
-        arrayList_city.add("Dewas");
-        arrayList_city.add("Indore");
-        arrayList_city.add("Bhopal");
-        arrayList_city.add("Mahidpur");
-        arrayList_city.add("Agar");
-        arrayList_city.add("other");
+        getCityName();
 
-        arrayAdapter_city = new ArrayAdapter<>(getApplicationContext(),R.layout.item_text_dd,arrayList_city);
-        autoCompleteTextView.setAdapter(arrayAdapter_city);
+
+//        arrayList_city = new ArrayList<>();
+//        arrayList_city.add("Ujjain");
+//        arrayList_city.add("Ratlam");
+//        arrayList_city.add("Dewas");
+//        arrayList_city.add("Indore");
+//        arrayList_city.add("Bhopal");
+//        arrayList_city.add("Mahidpur");
+//        arrayList_city.add("Agar");
+//        arrayList_city.add("other");
+
+        cityArrayAdapter = new CityAdapter(this, (ArrayList<RowItem>) citynamelist);
+        autoCompleteTextView.setAdapter(cityArrayAdapter);
         autoCompleteTextView.setThreshold(1);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               initData();
-               initRecyclerview();
-            }
-        });
+
+//        arrayAdapter_city = new ArrayAdapter<>(getApplicationContext(),R.layout.item_text_dd,arrayList_city);
+//        autoCompleteTextView.setAdapter(arrayAdapter_city);
+//        autoCompleteTextView.setThreshold(1);
+//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//               initData();
+//               initRecyclerview();
+//            }
+//        });
 
         //Recycler View ----
 
@@ -157,14 +190,27 @@ public class city_name extends AppCompatActivity {
 //        get device id and fcm token
 
         String deviceId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
-//        Log.i("TAG", "onCreate: sdasd"+deviceId);
-        
+        Log.i("TAG", "onCreate: sdasd"+deviceId);
 
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()){
+                    deviceToken = task.getResult();
+                    Log.i("TAG", "onComplete: abdgs"+deviceToken);
+                }
+            }
+        });
+
+
+
+
+//        getCityName();
 
 
 
     }
-
 
 
 
@@ -310,6 +356,63 @@ public class city_name extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent,"Share Via"));
 
     }
+
+
+    private void getCityName() {
+
+        CityApiInterface apiInterface = CityApi.getRetrofitInstance().create(CityApiInterface.class);
+
+        Call<List<RowItem>> call = apiInterface.getAllCity();
+
+        call.enqueue(new Callback<List<RowItem>>() {
+            @Override
+            public void onResponse(Call<List<RowItem>> call, Response<List<RowItem>> response) {
+
+
+                try {
+                    String res = new Gson().toJson(response.body());
+                    JSONArray mainArray = new JSONArray(res);
+                    citynamelist = new ArrayList<>();
+
+                    for (int i=0; i<mainArray.length();i++)
+                    {
+                        JSONObject finalObject = mainArray.getJSONObject(i);
+                        System.out.println("RESPONCE "+finalObject);
+                        String IDD = finalObject.getString("id");
+                        int toint = Integer.parseInt(IDD);
+                        String str = finalObject.getString("name");
+
+                        citynamelist.add(new RowItem(toint,str));
+                        Log.i("TAG", "onResponse: sasasa"+citynamelist);
+                    }
+                    cityArrayAdapter.submitList(citynamelist);
+                    cityArrayAdapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<RowItem>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+//    private void initCityName() {
+
+//        citynamelist = new ArrayList<>();
+//        citynamelist.add(new RowItem(1,"ujjain"));
+//        citynamelist.add(new RowItem(2,"Indore"));
+//        citynamelist.add(new RowItem(3,"Agar"));
+//        citynamelist.add(new RowItem(4,"Bhopal"));
+//    }
+
+
+
 
 
 }

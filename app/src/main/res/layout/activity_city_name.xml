@@ -175,7 +175,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/dropdown_bg"
                 android:hint="Select City"
-
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:padding="14dp"
@@ -185,6 +184,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </FrameLayout>
+
 
 <!--    navigation View -->
 
