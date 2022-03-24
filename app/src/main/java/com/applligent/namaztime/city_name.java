@@ -30,6 +30,10 @@ import com.applligent.namaztime.cityNameApi.CityAdapter;
 import com.applligent.namaztime.cityNameApi.CityApi;
 import com.applligent.namaztime.cityNameApi.CityApiInterface;
 import com.applligent.namaztime.cityNameApi.RowItem;
+import com.applligent.namaztime.nearByMasjid.MasjidLIstRetrofit;
+import com.applligent.namaztime.nearByMasjid.MasjidListAdapter;
+import com.applligent.namaztime.nearByMasjid.MasjidListInterface;
+import com.applligent.namaztime.nearByMasjid.MasjidListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -42,13 +46,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class city_name extends AppCompatActivity {
+public class city_name extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     // Drawer layout sliding menu bar
 
@@ -58,24 +65,29 @@ public class city_name extends AppCompatActivity {
     TextView TB_title;
 
 
+
+
+
   //    dropdown-->
     TextInputLayout textInputLayout;
-    AutoCompleteTextView autoCompleteTextView;
+    AutoCompleteTextView autoCompleteTextView ;
 
 //    ArrayList<String> arrayList_city;
 //    ArrayAdapter<String> arrayAdapter_city;
 
-    List<RowItem> citynamelist = new ArrayList<>();
+    List<RowItem> citynamelist;
     CityAdapter cityArrayAdapter;
+    Spinner spinner;
 
     // Recycler View for Masjid Details ---->
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
-    List<city_name_ModelClass> masjidlist;
-    city_name_Adapter adapter;
-    Spinner citySpinnner;
+    List<MasjidListModel> masjidlist = new ArrayList<>();
+    MasjidListAdapter adapter;
 
 
+    String cityID;
+    String deviceId;
     String deviceToken;
 
 
@@ -152,10 +164,12 @@ public class city_name extends AppCompatActivity {
 
 
 //        //dropDown
-        textInputLayout = findViewById(R.id.drop_down_menu);
-        autoCompleteTextView = findViewById(R.id.drop_citynames);
+//        textInputLayout = findViewById(R.id.drop_down_menu);
+//        autoCompleteTextView = findViewById(R.id.drop_citynames);
+
 
         getCityName();
+
 
 
 //        arrayList_city = new ArrayList<>();
@@ -168,9 +182,6 @@ public class city_name extends AppCompatActivity {
 //        arrayList_city.add("Agar");
 //        arrayList_city.add("other");
 
-        cityArrayAdapter = new CityAdapter(this, (ArrayList<RowItem>) citynamelist);
-        autoCompleteTextView.setAdapter(cityArrayAdapter);
-        autoCompleteTextView.setThreshold(1);
 
 //        arrayAdapter_city = new ArrayAdapter<>(getApplicationContext(),R.layout.item_text_dd,arrayList_city);
 //        autoCompleteTextView.setAdapter(arrayAdapter_city);
@@ -178,18 +189,19 @@ public class city_name extends AppCompatActivity {
 //        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                autoCompleteTextView.setText(citynamelist.get(i).getName());
 //               initData();
 //               initRecyclerview();
 //            }
 //        });
 
-        //Recycler View ----
+
 
 
 
 //        get device id and fcm token
 
-        String deviceId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+        deviceId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
         Log.i("TAG", "onCreate: sdasd"+deviceId);
 
 
@@ -204,124 +216,118 @@ public class city_name extends AppCompatActivity {
         });
 
 
-
-
-//        getCityName();
-
-
-
-    }
-
-
-
-    private void initData() {
-
-        masjidlist = new ArrayList<city_name_ModelClass>();
-
-        city_name_ModelClass masjid1 = new city_name_ModelClass();
-
-        masjid1.setMasjidname("Jama Masjid");
-        masjid1.setJumadetails("Juma 01:00 PM");
-        masjid1.setStarlogo(R.drawable.empty_star);
-        masjid1.setFajr("Fajr");
-        masjid1.setFajrtime("05:00 AM");
-        masjid1.setZuhar("Zuhar");
-        masjid1.setZuhartime("01:00 PM");
-        masjid1.setAsar("Asar");
-        masjid1.setAsartime("05:00 PM");
-        masjid1.setMaghrib("Maghrib");
-        masjid1.setMaghribtime("06:30 PM");
-        masjid1.setIsha("Isha");
-        masjid1.setIshatime("08:00 PM");
-        masjidlist.add(masjid1);
-
-        city_name_ModelClass masjid2 = new city_name_ModelClass();
-
-        masjid2.setMasjidname("Fateh Masjid");
-        masjid2.setJumadetails("Juma 01:00 PM");
-        masjid2.setStarlogo(R.drawable.empty_star);
-        masjid2.setFajr("Fajr");
-        masjid2.setFajrtime("05:00 AM");
-        masjid2.setZuhar("Zuhar");
-        masjid2.setZuhartime("01:00 PM");
-        masjid2.setAsar("Asar");
-        masjid2.setAsartime("05:00 PM");
-        masjid2.setMaghrib("Maghrib");
-        masjid2.setMaghribtime("06:30 PM");
-        masjid2.setIsha("Isha");
-        masjid2.setIshatime("08:00 PM");
-        masjidlist.add(masjid2);
-
-        city_name_ModelClass masjid3 = new city_name_ModelClass();
-
-        masjid3.setMasjidname("Masjid Abubakr");
-        masjid3.setJumadetails("Juma 01:00 PM");
-        masjid3.setStarlogo(R.drawable.empty_star);
-        masjid3.setFajr("Fajr");
-        masjid3.setFajrtime("05:00 AM");
-        masjid3.setZuhar("Zuhar");
-        masjid3.setZuhartime("01:00 PM");
-        masjid3.setAsar("Asar");
-        masjid3.setAsartime("05:00 PM");
-        masjid3.setMaghrib("Maghrib");
-        masjid3.setMaghribtime("06:30 PM");
-        masjid3.setIsha("Isha");
-        masjid3.setIshatime("08:00 PM");
-        masjidlist.add(masjid3);
-
-        city_name_ModelClass masjid4 = new city_name_ModelClass();
-
-        masjid4.setMasjidname("Masjid Noor-e-Ismile");
-        masjid4.setJumadetails("Juma 01:00 PM");
-        masjid4.setStarlogo(R.drawable.empty_star);
-        masjid4.setFajr("Fajr");
-        masjid4.setFajrtime("05:00 AM");
-        masjid4.setZuhar("Zuhar");
-        masjid4.setZuhartime("01:00 PM");
-        masjid4.setAsar("Asar");
-        masjid4.setAsartime("05:00 PM");
-        masjid4.setMaghrib("Maghrib");
-        masjid4.setMaghribtime("06:30 PM");
-        masjid4.setIsha("Isha");
-        masjid4.setIshatime("08:00 PM");
-        masjidlist.add(masjid4);
-
-
-        city_name_ModelClass masjid5 = new city_name_ModelClass();
-
-        masjid5.setMasjidname("Madina Masjid");
-        masjid5.setJumadetails("Juma 01:00 PM");
-        masjid5.setStarlogo(R.drawable.empty_star);
-        masjid5.setFajr("Fajr");
-        masjid5.setFajrtime("05:00 AM");
-        masjid5.setZuhar("Zuhar");
-        masjid5.setZuhartime("01:00 PM");
-        masjid5.setAsar("Asar");
-        masjid5.setAsartime("05:00 PM");
-        masjid5.setMaghrib("Maghrib");
-        masjid5.setMaghribtime("06:30 PM");
-        masjid5.setIsha("Isha");
-        masjid5.setIshatime("08:00 PM");
-        masjidlist.add(masjid5);
-
-
+        initRecyclerview();
+//        initdata();
 
 
     }
 
 
 
-    private void initRecyclerview() {
+//    private void initData() {
+//
+//        masjidlist = new ArrayList<city_name_ModelClass>();
+//
+//        city_name_ModelClass masjid1 = new city_name_ModelClass();
+//
+//        masjid1.setMasjidname("Jama Masjid");
+//        masjid1.setJumadetails("Juma 01:00 PM");
+//        masjid1.setStarlogo(R.drawable.empty_star);
+//        masjid1.setFajr("Fajr");
+//        masjid1.setFajrtime("05:00 AM");
+//        masjid1.setZuhar("Zuhar");
+//        masjid1.setZuhartime("01:00 PM");
+//        masjid1.setAsar("Asar");
+//        masjid1.setAsartime("05:00 PM");
+//        masjid1.setMaghrib("Maghrib");
+//        masjid1.setMaghribtime("06:30 PM");
+//        masjid1.setIsha("Isha");
+//        masjid1.setIshatime("08:00 PM");
+//        masjidlist.add(masjid1);
+//
+//        city_name_ModelClass masjid2 = new city_name_ModelClass();
+//
+//        masjid2.setMasjidname("Fateh Masjid");
+//        masjid2.setJumadetails("Juma 01:00 PM");
+//        masjid2.setStarlogo(R.drawable.empty_star);
+//        masjid2.setFajr("Fajr");
+//        masjid2.setFajrtime("05:00 AM");
+//        masjid2.setZuhar("Zuhar");
+//        masjid2.setZuhartime("01:00 PM");
+//        masjid2.setAsar("Asar");
+//        masjid2.setAsartime("05:00 PM");
+//        masjid2.setMaghrib("Maghrib");
+//        masjid2.setMaghribtime("06:30 PM");
+//        masjid2.setIsha("Isha");
+//        masjid2.setIshatime("08:00 PM");
+//        masjidlist.add(masjid2);
+//
+//        city_name_ModelClass masjid3 = new city_name_ModelClass();
+//
+//        masjid3.setMasjidname("Masjid Abubakr");
+//        masjid3.setJumadetails("Juma 01:00 PM");
+//        masjid3.setStarlogo(R.drawable.empty_star);
+//        masjid3.setFajr("Fajr");
+//        masjid3.setFajrtime("05:00 AM");
+//        masjid3.setZuhar("Zuhar");
+//        masjid3.setZuhartime("01:00 PM");
+//        masjid3.setAsar("Asar");
+//        masjid3.setAsartime("05:00 PM");
+//        masjid3.setMaghrib("Maghrib");
+//        masjid3.setMaghribtime("06:30 PM");
+//        masjid3.setIsha("Isha");
+//        masjid3.setIshatime("08:00 PM");
+//        masjidlist.add(masjid3);
+//
+//        city_name_ModelClass masjid4 = new city_name_ModelClass();
+//
+//        masjid4.setMasjidname("Masjid Noor-e-Ismile");
+//        masjid4.setJumadetails("Juma 01:00 PM");
+//        masjid4.setStarlogo(R.drawable.empty_star);
+//        masjid4.setFajr("Fajr");
+//        masjid4.setFajrtime("05:00 AM");
+//        masjid4.setZuhar("Zuhar");
+//        masjid4.setZuhartime("01:00 PM");
+//        masjid4.setAsar("Asar");
+//        masjid4.setAsartime("05:00 PM");
+//        masjid4.setMaghrib("Maghrib");
+//        masjid4.setMaghribtime("06:30 PM");
+//        masjid4.setIsha("Isha");
+//        masjid4.setIshatime("08:00 PM");
+//        masjidlist.add(masjid4);
+//
+//
+//        city_name_ModelClass masjid5 = new city_name_ModelClass();
+//
+//        masjid5.setMasjidname("Madina Masjid");
+//        masjid5.setJumadetails("Juma 01:00 PM");
+//        masjid5.setStarlogo(R.drawable.empty_star);
+//        masjid5.setFajr("Fajr");
+//        masjid5.setFajrtime("05:00 AM");
+//        masjid5.setZuhar("Zuhar");
+//        masjid5.setZuhartime("01:00 PM");
+//        masjid5.setAsar("Asar");
+//        masjid5.setAsartime("05:00 PM");
+//        masjid5.setMaghrib("Maghrib");
+//        masjid5.setMaghribtime("06:30 PM");
+//        masjid5.setIsha("Isha");
+//        masjid5.setIshatime("08:00 PM");
+//        masjidlist.add(masjid5);
+//
+//
+//
+//
+//    }
 
-        recyclerView = findViewById(R.id.masjiddetails_recyclerview);
-        layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new city_name_Adapter(masjidlist,this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
-    }
+
+
+//    private void initdata() {
+//
+//
+//    }
+
+
 
 //    About App Dialog
 
@@ -373,20 +379,48 @@ public class city_name extends AppCompatActivity {
                     String res = new Gson().toJson(response.body());
                     JSONArray mainArray = new JSONArray(res);
                     citynamelist = new ArrayList<>();
+                    citynamelist.add(new RowItem("0","Select City"));
 
                     for (int i=0; i<mainArray.length();i++)
                     {
                         JSONObject finalObject = mainArray.getJSONObject(i);
-                        System.out.println("RESPONCE "+finalObject);
+//                        System.out.println("RESPONCE "+finalObject);
                         String IDD = finalObject.getString("id");
-                        int toint = Integer.parseInt(IDD);
                         String str = finalObject.getString("name");
 
-                        citynamelist.add(new RowItem(toint,str));
-                        Log.i("TAG", "onResponse: sasasa"+citynamelist);
+                        citynamelist.add(new RowItem(IDD,str));
+                        Log.i("TAG", "onResponse: sasasera"+citynamelist);
                     }
-                    cityArrayAdapter.submitList(citynamelist);
-                    cityArrayAdapter.notifyDataSetChanged();
+
+
+                    spinner = (Spinner)findViewById(R.id.CitySpinner) ;
+                    cityArrayAdapter = new CityAdapter(city_name.this,citynamelist);
+                    cityArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(cityArrayAdapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            cityID = adapterView.getItemAtPosition(i).toString();
+                            if (i!=0)
+                            {
+//                                Toast.makeText(city_name.this, "Selected = "+cityID, Toast.LENGTH_SHORT).show();
+                                getMasjidlist();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+
+
+//                    cityArrayAdapter = new CityAdapter(city_name.this,R.layout.item_text_dd,citynamelist);
+//                    autoCompleteTextView.setAdapter(cityArrayAdapter);
+//                    autoCompleteTextView.setThreshold(1);
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -397,21 +431,74 @@ public class city_name extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<RowItem>> call, Throwable t) {
 
+
+
             }
         });
 
     }
 
-//    private void initCityName() {
+    private void getMasjidlist() {
 
-//        citynamelist = new ArrayList<>();
-//        citynamelist.add(new RowItem(1,"ujjain"));
-//        citynamelist.add(new RowItem(2,"Indore"));
-//        citynamelist.add(new RowItem(3,"Agar"));
-//        citynamelist.add(new RowItem(4,"Bhopal"));
-//    }
+        HashMap<String,Object> request = new HashMap<>();
+        request.put("masjidCityId",cityID);
+        request.put("deviceId",deviceId);
+        request.put("deviceToken",deviceToken);
+
+        MasjidListInterface masjidListInterface = MasjidLIstRetrofit.getMasjidListRetrofit().create(MasjidListInterface.class);
+
+        Call<Object> masjidListcall = masjidListInterface.getAllMasjidsDetails(request);
+        masjidListcall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+
+                try {
+                    String obj = new Gson().toJson(response.body());
+                    JSONObject mainObject = new JSONObject(obj);
+                    JSONArray dataArray = mainObject.getJSONArray("data");
+                    JSONObject firstObj = dataArray.getJSONObject(0);
+                    System.out.println("RESPONSELIST "+firstObj);
+
+                    String S1 = firstObj.getString("fajar");
+                    Log.i("TAG", "onResponse: fsdf"+S1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
 
 
+    }
+
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void initRecyclerview() {
+
+        recyclerView = findViewById(R.id.masjiddetails_recyclerview);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new MasjidListAdapter(masjidlist,this);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+    }
 
 
 

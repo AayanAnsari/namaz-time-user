@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,6 +67,7 @@ public class Change_Location extends AppCompatActivity {
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("dd-MM hh:mm");
         DateTime = simpleDateFormat.format(calendar.getTime());
+
 
 
         input_location = findViewById(R.id.input_location);

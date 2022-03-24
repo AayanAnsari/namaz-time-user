@@ -160,28 +160,47 @@
 
 
     </RelativeLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/drop_down_menu"
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/drop_down_menu"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            android:layout_marginTop="200dp"-->
+<!--            android:padding="10dp">-->
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/drop_citynames"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@drawable/dropdown_bg"-->
+<!--                android:hint="Select City"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:padding="14dp"-->
+<!--                android:textSize="18sp" />-->
+
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <RelativeLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            android:layout_marginTop="200dp"
-            android:padding="10dp">
+            android:layout_marginTop="215dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/dropdown_bg"
+            >
 
-            <AutoCompleteTextView
-                android:id="@+id/drop_citynames"
+            <Spinner
+                android:id="@+id/CitySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dropdown_bg"
-                android:hint="Select City"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:padding="14dp"
-                android:textSize="18sp" />
+                android:layout_height="50dp"
+                android:focusable="false"
+                android:prompt="@string/dd_hint" />
 
-
-        </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
 
     </FrameLayout>
 

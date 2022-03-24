@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView islamic_Date;
 
+    Calendar calendar;
+    SimpleDateFormat simpleDateFormat;
+    String CurrentTime;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -354,6 +358,8 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.i("TAG", "onResponse: dfjsdkfk "+kk);
 
 
+                     CurrentNamazTime();
+
                 }catch (Exception e){
                     Log.i("tag",e.getMessage());
                 }
@@ -369,6 +375,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -395,6 +403,23 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("TAG", "getHijriDate: abcgsa"+islamicDate);
 
+
+
+
+
+    }
+
+    private void CurrentNamazTime() {
+
+        calendar = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("HH:mm");
+        CurrentTime = simpleDateFormat.format(calendar.getTime());
+//        Log.i("TAG", "CurrentNamazTime: asawsqa"+CurrentTime);
+
+        String[] AA = CurrentTime.split(":");
+        int CurrentH = Integer.parseInt(AA[0]);
+        int CurrentM = Integer.parseInt(AA[1]);
+        Log.i("TAG", "CurrentNamazTime: qrres"+CurrentH+CurrentM);
 
 
 

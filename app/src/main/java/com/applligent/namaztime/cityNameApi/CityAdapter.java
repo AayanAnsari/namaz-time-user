@@ -1,57 +1,59 @@
 package com.applligent.namaztime.cityNameApi;
 
 
+
 import android.content.Context;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 
 import com.applligent.namaztime.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Callback;
+
 public class CityAdapter extends ArrayAdapter<RowItem> {
 
-    private Context context;
-    private List<RowItem> citynamelist = new ArrayList<>();
-
-
-    public CityAdapter(@NonNull Context context, ArrayList<RowItem> list) {
-        super(context,0,list);
-        context = context;
-        //citynamelist = list;
+    public CityAdapter(Context context, List<RowItem> objects) {
+        super(context, android.R.layout.simple_list_item_2, objects);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-
-        View listitem = convertView;
-        if (listitem == null)
-            listitem = LayoutInflater.from(context).inflate(R.layout.item_text_dd,parent,false);
-
-
-        RowItem currentcity = citynamelist.get(position);
-
-        TextView City_ID_TV = listitem.findViewById(R.id.city_id);
-        City_ID_TV.setText(currentcity.getId());
-
-        TextView City_Name = listitem.findViewById(R.id.city_name);
-        City_Name.setText(currentcity.getName());
-
-        return listitem;
-
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return initView(position, convertView);
     }
 
+    @Override
+    public View getDropDownView(int position, View convertView,
+                                ViewGroup parent) {
+        return initView(position, convertView);
+    }
 
-    public void submitList(List<RowItem> list) {
-        citynamelist = list;
+    private View initView(int position, View convertView) {
+
+        if (convertView == null)
+            convertView = View.inflate(getContext(), R.layout.item_text_dd, null);
+
+        TextView tvText1 = (TextView) convertView.findViewById(R.id.city_id);
+        TextView tvText2 = (TextView) convertView.findViewById(R.id.city_name);
+
+        tvText1.setText(getItem(position).getId());
+        tvText1.setVisibility(View.INVISIBLE);
+
+        tvText2.setText(getItem(position).getName());
+
+        return convertView;
+
+
     }
 }
+
+
+
+

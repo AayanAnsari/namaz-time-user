@@ -30,18 +30,49 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/juma_time"
+            <RelativeLayout
+                android:id="@+id/JumaRL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="32dp"
+                android:padding="4dp"
                 android:layout_toLeftOf="@id/star_logo"
                 android:background="@drawable/green_bg_details"
-                android:padding="4dp"
-                android:text="Juma 1:00 AM"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                >
+
+                <TextView
+                    android:id="@+id/juma_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Juma "
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/juma_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/juma_text"
+                    android:text="01:00PM"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/juma_time"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginRight="32dp"-->
+<!--                android:layout_toLeftOf="@id/star_logo"-->
+<!--                android:background="@drawable/green_bg_details"-->
+<!--                android:padding="4dp"-->
+<!--                android:text="Juma 1:00 AM"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp" />-->
 
             <ImageView
                 android:id="@+id/star_logo"
