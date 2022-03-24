@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/top_corner_radius.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/track.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/tv_border.xml" value="0.1465" />
+        <entry key="app/src/main/res/drawable/tv_greenborder.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/white_button.xml" value="0.25" />
         <entry key="app/src/main/res/layout/about_app_dialogue.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_alarm_screen.xml" value="0.25" />

@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,8 +83,9 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
     // Recycler View for Masjid Details ---->
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
-    List<MasjidListModel> masjidlist = new ArrayList<>();
+    List<MasjidListModel> masjidlist;
     MasjidListAdapter adapter;
+    ProgressBar progressBar;
 
 
     String cityID;
@@ -95,6 +97,8 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_name);
+
+        progressBar = findViewById(R.id.progressBar);
 
         drawerLayout = findViewById(R.id.city_drawerlayout);
         navigationView = findViewById(R.id.navigation_view);
@@ -215,9 +219,6 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
             }
         });
 
-
-        initRecyclerview();
-//        initdata();
 
 
     }
@@ -440,6 +441,8 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
 
     private void getMasjidlist() {
 
+        progressBar.setVisibility(View.VISIBLE);
+
         HashMap<String,Object> request = new HashMap<>();
         request.put("masjidCityId",cityID);
         request.put("deviceId",deviceId);
@@ -452,18 +455,59 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
 
-                try {
-                    String obj = new Gson().toJson(response.body());
-                    JSONObject mainObject = new JSONObject(obj);
-                    JSONArray dataArray = mainObject.getJSONArray("data");
-                    JSONObject firstObj = dataArray.getJSONObject(0);
-                    System.out.println("RESPONSELIST "+firstObj);
+                if (response.isSuccessful() && response.body()!=null)
+                {
+                    try {
+                        String obj = new Gson().toJson(response.body());
+                        JSONObject mainObject = new JSONObject(obj);
+                        JSONArray dataArray = mainObject.getJSONArray("data");
+                        masjidlist = new ArrayList<MasjidListModel>();
+                        for(int i=0; i<dataArray.length(); i++)
+                        {
+                            JSONObject jsonObj = dataArray.getJSONObject(i);
+                            MasjidListModel masjid = new MasjidListModel();
+                            String masjidName = jsonObj.getString("name");
+                            masjid.setName(masjidName);
 
-                    String S1 = firstObj.getString("fajar");
-                    Log.i("TAG", "onResponse: fsdf"+S1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                            String masjidID = jsonObj.getString("masjidId");
+                            masjid.setMasjidID(masjidID);
+
+                            String fajarTime = jsonObj.getString("fajar");
+                            masjid.setFajar(fajarTime);
+
+                            String zuharTime = jsonObj.getString("zuhar");
+                            masjid.setZuhar(zuharTime);
+
+                            String asarTime = jsonObj.getString("asar");
+                            masjid.setAsar(asarTime);
+
+                            String maghribTime = jsonObj.getString("magrib");
+                            masjid.setMagrib(maghribTime);
+
+                            String ishaTime = jsonObj.getString("isha");
+                            masjid.setIsha(ishaTime);
+
+                            String juma_Time = jsonObj.getString("jumaTime");
+                            masjid.setJumaTime(juma_Time);
+
+                            Double LAT = jsonObj.getDouble("lat");
+                            masjid.setLat(LAT);
+
+                            Double LNG = jsonObj.getDouble("lng");
+                            masjid.setLng(LNG);
+
+                            masjidlist.add(masjid);
+
+                        }
+                        initRecyclerview();
+                        progressBar.setVisibility(View.GONE);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+
 
             }
 

@@ -33,13 +33,33 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.masjidname_TV.setText(masjidList.get(position).getName());
-        holder.fajr_time_TV.setText(masjidList.get(position).getFajar());
-        holder.zuhar_time_TV.setText(masjidList.get(position).getZuhar());
-        holder.asar_time_TV.setText(masjidList.get(position).getAsar());
-        holder.maghrib_time_TV.setText(masjidList.get(position).getMagrib());
-        holder.isha_time_TV.setText(masjidList.get(position).getIsha());
-        holder.juma_time_TV.setText(masjidList.get(position).getJumaTime());
+        String masjid_name = masjidList.get(position).getName();
+        String fajt_time = masjidList.get(position).getFajar();
+        String zuhar_time = masjidList.get(position).getZuhar();
+        String asar_time = masjidList.get(position).getAsar();
+        String maghrib_time = masjidList.get(position).getMagrib();
+        String isha_time = masjidList.get(position).getIsha();
+        String juma_time = masjidList.get(position).getJumaTime();
+
+        holder.masjidname_TV.setText(masjid_name);
+        holder.fajr_time_TV.setText(fajt_time);
+        holder.zuhar_time_TV.setText(zuhar_time);
+        holder.asar_time_TV.setText(asar_time);
+        holder.maghrib_time_TV.setText(maghrib_time);
+        holder.isha_time_TV.setText(isha_time);
+        holder.juma_time_TV.setText(juma_time);
+
+
+
+
+//
+//        holder.masjidname_TV.setText(masjidList.get(position).getName());
+//        holder.fajr_time_TV.setText(masjidList.get(position).getFajar());
+//        holder.zuhar_time_TV.setText(masjidList.get(position).getZuhar());
+//        holder.asar_time_TV.setText(masjidList.get(position).getAsar());
+//        holder.maghrib_time_TV.setText(masjidList.get(position).getMagrib());
+//        holder.isha_time_TV.setText(masjidList.get(position).getIsha());
+//        holder.juma_time_TV.setText(masjidList.get(position).getJumaTime());
 
     }
 

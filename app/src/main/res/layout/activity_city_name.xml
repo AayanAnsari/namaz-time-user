@@ -103,7 +103,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/upcoming_namaz_time"
+                    android:id="@+id/upcoming_namaz_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/upcoming"
@@ -116,7 +116,7 @@
                     android:id="@+id/islamic_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/upcoming_namaz_time"
+                    android:layout_below="@id/upcoming_namaz_name"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="20dp"
                     android:text="3"
@@ -148,11 +148,17 @@
             android:layout_marginTop="-40dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="40dp"
+                android:id="@+id/masjiddetails_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/masjiddetails_recyclerview"
-                />
+                android:layout_marginTop="40dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
 
         </androidx.cardview.widget.CardView>

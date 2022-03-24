@@ -16,6 +16,7 @@ public class city_name_ModelClass {
     private String isha;
     private String ishatime;
 
+
     public String getMasjidname() {
         return masjidname;
     }

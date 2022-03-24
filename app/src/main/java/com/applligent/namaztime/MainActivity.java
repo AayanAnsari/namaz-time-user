@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.chrono.HijrahChronology;
 import java.time.chrono.HijrahDate;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +51,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    ProgressBar progressBar;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -61,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
     TextView asarTV;
     TextView maghribTV;
     TextView ishaTV;
+    TextView nowN;
+    TextView upcomingN;
+    RelativeLayout rl1;
+    RelativeLayout rl2;
+    RelativeLayout rl3;
+    RelativeLayout rl4;
+    RelativeLayout rl5;
 
     TextView islamic_Date;
 
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -195,6 +208,16 @@ public class MainActivity extends AppCompatActivity {
         maghribTV = findViewById(R.id.time_of_maghrib);
         ishaTV = findViewById(R.id.time_of_isha);
 
+        nowN = findViewById(R.id.now_namaz_name);
+        upcomingN = findViewById(R.id.upcoming_namaz_name);
+
+        rl1 = findViewById(R.id.RL_1);
+        rl2 = findViewById(R.id.RL_2);
+        rl3 = findViewById(R.id.RL_3);
+        rl4 = findViewById(R.id.RL_4);
+        rl5 = findViewById(R.id.RL_5);
+
+
         getNamazTime();
 
 
@@ -244,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<Object>() {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
 
@@ -255,28 +279,30 @@ public class MainActivity extends AppCompatActivity {
 //                    System.out.println("RESPONSE "+finalObject);
 
                     String fajr_str = finalObject.getString("Fajr");
-                    fajr_str = fajr_str.replaceAll("[(IST)]", "");
+                    fajr_str = fajr_str.replaceAll("[ (IST)]", "");
 //                    fajrTV.setText(fajr_str + "AM");
 //                    fajrTV.setText(finalObject.getString("Fajr"));
                     String[] A1 = fajr_str.split(":");
+                    int hh1 = Integer.parseInt(A1[0]);
                     int h1 = Integer.parseInt(A1[0]);
                     String m1 = A1[1];
                     if (h1>12)
                     {
                         h1 = h1-12;
-                        fajrTV.setText(h1+":"+m1+"PM");
+                        fajrTV.setText(h1+":"+m1+" PM");
                     }else {
                         if (h1<10)
                         {
-                            fajrTV.setText("0"+h1+":"+m1+"AM");
+                            fajrTV.setText("0"+h1+":"+m1+" AM");
                         }else {
-                            fajrTV.setText(h1 + ":" + m1 + "AM");
+                            fajrTV.setText(h1 + ":" + m1 + " AM");
                         }
                     }
 
                     String zuhar_str = finalObject.getString("Dhuhr");
-                    zuhar_str = zuhar_str.replaceAll("[(IST)]","");
+                    zuhar_str = zuhar_str.replaceAll("[ (IST)]","");
                     String[] A2 = zuhar_str.split(":");
+                    int hh2 = Integer.parseInt(A2[0]);
                     int h2 = Integer.parseInt(A2[0]);
                     String m2 = A2[1];
                     if (h2>12)
@@ -284,18 +310,19 @@ public class MainActivity extends AppCompatActivity {
                         h2 = h2-12;
                         if (h2<10)
                         {
-                            zuharTV.setText("0"+h2+":"+m2+"PM");
+                            zuharTV.setText("0"+h2+":"+m2+" PM");
                         }else {
-                            zuharTV.setText(h2+":"+m2+"PM");
+                            zuharTV.setText(h2+":"+m2+" PM");
                         }
 
                     }else {
-                        zuharTV.setText(h2+":"+m2+"PM");
+                        zuharTV.setText(h2+":"+m2+" PM");
                     }
 
                     String asar_str = finalObject.getString("Asr");
-                    asar_str = asar_str.replaceAll("[(IST)]","");
+                    asar_str = asar_str.replaceAll("[ (IST)]","");
                     String[] A3 = asar_str.split(":");
+                    int hh3 = Integer.parseInt(A3[0]);
                     int h3 = Integer.parseInt(A3[0]);
                     String m3 = A3[1];
                     if (h3>12)
@@ -303,17 +330,18 @@ public class MainActivity extends AppCompatActivity {
                         h3 = h3-12;
                         if (h3<10)
                         {
-                            asarTV.setText("0"+h3+":"+m3+"PM");
+                            asarTV.setText("0"+h3+":"+m3+" PM");
                         }else {
-                            asarTV.setText(h3+":"+m3+"PM");
+                            asarTV.setText(h3+":"+m3+" PM");
                         }
                     }else {
-                        asarTV.setText(h3+":"+m3+"AM");
+                        asarTV.setText(h3+":"+m3+" AM");
                     }
 
                     String maghrib_str = finalObject.getString("Maghrib");
-                    maghrib_str = maghrib_str.replaceAll("[(IST)]","");
+                    maghrib_str = maghrib_str.replaceAll("[ (IST)]","");
                     String[] A4 = maghrib_str.split(":");
+                    int hh4 = Integer.parseInt(A4[0]);
                     int h4 = Integer.parseInt(A4[0]);
                     String m4 = A4[1];
                     if (h4>12)
@@ -321,17 +349,18 @@ public class MainActivity extends AppCompatActivity {
                         h4 = h4-12;
                         if (h4<10)
                         {
-                            maghribTV.setText("0"+h4+":"+m4+"PM");
+                            maghribTV.setText("0"+h4+":"+m4+" PM");
                         }else {
-                            maghribTV.setText(h4+":"+m4+"PM");
+                            maghribTV.setText(h4+":"+m4+" PM");
                         }
                     }else {
-                        maghribTV.setText(h4+":"+m4+"AM");
+                        maghribTV.setText(h4+":"+m4+" AM");
                     }
 
                     String isha_str = finalObject.getString("Isha");
-                    isha_str = isha_str.replaceAll("[(IST)]","");
+                    isha_str = isha_str.replaceAll("[ (IST)]","");
                     String[] A5 = isha_str.split(":");
+                    int hh5 = Integer.parseInt(A5[0]);
                     int h5 = Integer.parseInt(A5[0]);
                     String m5 = A5[1];
                     if (h5>12)
@@ -339,16 +368,23 @@ public class MainActivity extends AppCompatActivity {
                         h5 = h5-12;
                         if (h5<10)
                         {
-                            ishaTV.setText("0"+h5+":"+m5+"PM");
+                            ishaTV.setText("0"+h5+":"+m5+" PM");
                         }else {
-                            ishaTV.setText(h5+":"+m5+"PM");
+                            ishaTV.setText(h5+":"+m5+" PM");
                         }
                     }else {
-                        ishaTV.setText(h5+":"+m5+"AM");
+                        ishaTV.setText(h5+":"+m5+" AM");
                     }
 //                    Log.i("TAG","onResponse: asff"+hour);
 
 
+                    LocalTime fajrTime = LocalTime.parse(fajr_str);
+                    LocalTime zuharTime = LocalTime.parse(zuhar_str);
+                    LocalTime asarTime = LocalTime.parse(asar_str);
+                    LocalTime maghribTime = LocalTime.parse(maghrib_str);
+                    LocalTime ishaTime = LocalTime.parse(isha_str);
+
+//                    Log.i("TAG", "onResponse: jnytgvd"+fajrTime+"  "+zuharTime+"  "+asarTime+"  "+maghribTime+"  "+ishaTime);
 
 //                    Log.i("TAG","onResponse: abaab" + isha_str);
 //                    String ss = "04:42";
@@ -358,7 +394,51 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.i("TAG", "onResponse: dfjsdkfk "+kk);
 
 
-                     CurrentNamazTime();
+                    //Curretn TIME
+                    calendar = Calendar.getInstance();
+                    simpleDateFormat = new SimpleDateFormat("HH:mm");
+                    CurrentTime = simpleDateFormat.format(calendar.getTime());
+                    LocalTime CTime = LocalTime.parse(CurrentTime);
+                    Log.i("TAG", "onResponse: bgfh"+"CT -"+CTime);
+
+
+                    String[] AA = CurrentTime.split(":");
+                    int CurrentH = Integer.parseInt(AA[0]);
+                    int CurrentM = Integer.parseInt(AA[1]);
+                    Log.i("TAG", "CurrentNamazTime: qrres"+CurrentM);
+
+                    if (CTime.isAfter(fajrTime) && CTime.isBefore(zuharTime))
+                    {
+                        nowN.setText("Fajr");
+                        upcomingN.setText("Zuhar");
+                        rl1.setBackgroundResource(R.drawable.tv_greenborder);
+                    }
+                    else if (CTime.isAfter(zuharTime) && CTime.isBefore(asarTime))
+                    {
+                        nowN.setText("Zuhar");
+                        upcomingN.setText("Asar");
+                        rl2.setBackgroundResource(R.drawable.tv_greenborder);
+                    }
+                    else if(CTime.isAfter(asarTime) && CTime.isBefore(maghribTime))
+                    {
+                        nowN.setText("Asar");
+                        upcomingN.setText("Maghrib");
+                        rl3.setBackgroundResource(R.drawable.tv_greenborder);
+                    }
+                    else if (CTime.isAfter(maghribTime) && CTime.isBefore(ishaTime))
+                    {
+                        nowN.setText("Maghrib");
+                        upcomingN.setText("Isha");
+                        rl4.setBackgroundResource(R.drawable.tv_greenborder);
+                    }
+                    else if(CTime.isAfter(ishaTime) && CTime.isBefore(fajrTime))
+                    {
+                        nowN.setText("Isha");
+                        upcomingN.setText("Fajr");
+                        rl5.setBackgroundResource(R.drawable.tv_greenborder);
+                    }
+
+
 
                 }catch (Exception e){
                     Log.i("tag",e.getMessage());
@@ -409,22 +489,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void CurrentNamazTime() {
 
-        calendar = Calendar.getInstance();
-        simpleDateFormat = new SimpleDateFormat("HH:mm");
-        CurrentTime = simpleDateFormat.format(calendar.getTime());
-//        Log.i("TAG", "CurrentNamazTime: asawsqa"+CurrentTime);
-
-        String[] AA = CurrentTime.split(":");
-        int CurrentH = Integer.parseInt(AA[0]);
-        int CurrentM = Integer.parseInt(AA[1]);
-        Log.i("TAG", "CurrentNamazTime: qrres"+CurrentH+CurrentM);
-
-
-
-
-    }
 
 
 
