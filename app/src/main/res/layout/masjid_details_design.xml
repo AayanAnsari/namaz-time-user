@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -36,10 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="32dp"
-                android:padding="4dp"
                 android:layout_toLeftOf="@id/star_logo"
                 android:background="@drawable/green_bg_details"
-                >
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/juma_text"
@@ -61,27 +61,27 @@
 
             </RelativeLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/juma_time"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginRight="32dp"-->
-<!--                android:layout_toLeftOf="@id/star_logo"-->
-<!--                android:background="@drawable/green_bg_details"-->
-<!--                android:padding="4dp"-->
-<!--                android:text="Juma 1:00 AM"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="16sp" />-->
-
-            <ImageView
+            <CheckBox
                 android:id="@+id/star_logo"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/empty_star" />
+                android:layout_marginRight="8dp"
+                android:layout_alignParentRight="true"
+                android:button="@drawable/favourite_masjid_selector"
+                app:useMaterialThemeColors="false"
+                />
+
+<!--            <ToggleButton-->
+<!--                android:id="@+id/star_logo"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginRight="8dp"-->
+<!--                android:background="@drawable/ic_star_outline"-->
+<!--                android:textSize="0sp" />-->
+
 
             <LinearLayout
                 android:id="@+id/LL_for_namaztimes"

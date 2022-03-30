@@ -2,8 +2,12 @@ package com.applligent.namaztime;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.icu.util.IslamicCalendar;
+import android.icu.util.TimeZone;
+import android.icu.util.ULocale;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.applligent.namaztime.Api.ApiClient;
+import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +36,8 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -74,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout rl4;
     RelativeLayout rl5;
 
+    TextView monthAndYear,currentDateTV;
     TextView islamic_Date;
+    TextView islamic_FullDate;
 
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
@@ -160,28 +169,24 @@ public class MainActivity extends AppCompatActivity {
         near_by_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String NN = nowN.getText().toString();
+                String UN = upcomingN.getText().toString();
                 Intent intent = new Intent(MainActivity.this,city_name.class);
+                intent.putExtra("nowNamazTime",NN);
+                intent.putExtra("upcomingNamazTime",UN);
+
                 startActivity(intent);
             }
         });
 
 //        Current Date and Month
-
-        TextView monthAndYear,currentDateTV;
         currentDateTV = findViewById(R.id.currentDate);
         monthAndYear = findViewById(R.id.MandYname);
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat forDate = new SimpleDateFormat("dd");
-        String DD = forDate.format(calendar.getTime());
-        currentDateTV.setText(DD);
-        SimpleDateFormat forMonthYear = new SimpleDateFormat("MMMM yyyy");
-        String MY = forMonthYear.format(calendar.getTime());
-        monthAndYear.setText(MY);
+        getEnglishDate();
 
 //        Hijri Calender
-
-
-        islamic_Date = findViewById(R.id.islamic_fulldate);
+        islamic_Date = findViewById(R.id.islamic_date);
+        islamic_FullDate = findViewById(R.id.islamic_fulldate);
         getHijriDate();
 
 
@@ -225,6 +230,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void getEnglishDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat forDate = new SimpleDateFormat("dd");
+        String DD = forDate.format(calendar.getTime());
+        currentDateTV.setText(DD);
+        SimpleDateFormat forMonthYear = new SimpleDateFormat("MMMM yyyy");
+        String MY = forMonthYear.format(calendar.getTime());
+        monthAndYear.setText(MY);
+    }
+
+    private void getHijriDate() {
+
+        UmmalquraCalendar cal = new UmmalquraCalendar();
+        int islYear = cal.get(Calendar.YEAR);
+        int islMonth = cal.get(Calendar.MONTH);
+        int islDate = cal.get(Calendar.DAY_OF_MONTH);
+
+        SimpleDateFormat myDateFormat = new SimpleDateFormat("",Locale.ENGLISH);
+        myDateFormat.setCalendar(cal);
+
+        myDateFormat.applyPattern("dd");
+        String myIslamicDt = myDateFormat.format(cal.getTime());
+
+        myDateFormat.applyPattern("MMMM yyyy");
+        String myMonthYear = myDateFormat.format(cal.getTime());
+        islamic_Date.setText(myIslamicDt);
+        islamic_FullDate.setText(myMonthYear);
+
+    }
 
 
 
@@ -375,7 +409,6 @@ public class MainActivity extends AppCompatActivity {
                     }else {
                         ishaTV.setText(h5+":"+m5+" AM");
                     }
-//                    Log.i("TAG","onResponse: asff"+hour);
 
 
                     LocalTime fajrTime = LocalTime.parse(fajr_str);
@@ -384,14 +417,6 @@ public class MainActivity extends AppCompatActivity {
                     LocalTime maghribTime = LocalTime.parse(maghrib_str);
                     LocalTime ishaTime = LocalTime.parse(isha_str);
 
-//                    Log.i("TAG", "onResponse: jnytgvd"+fajrTime+"  "+zuharTime+"  "+asarTime+"  "+maghribTime+"  "+ishaTime);
-
-//                    Log.i("TAG","onResponse: abaab" + isha_str);
-//                    String ss = "04:42";
-//                    String[] saa = ss.split(":");
-//                    Log.i("TAG", "onResponse: dfdsjkfsl "+saa[0]+"  "+saa[1]);
-//                    int kk = Integer.parseInt(saa[0]) ;
-//                    Log.i("TAG", "onResponse: dfjsdkfk "+kk);
 
 
                     //Curretn TIME
@@ -407,32 +432,36 @@ public class MainActivity extends AppCompatActivity {
                     int CurrentM = Integer.parseInt(AA[1]);
                     Log.i("TAG", "CurrentNamazTime: qrres"+CurrentM);
 
-                    if (CTime.isAfter(fajrTime) && CTime.isBefore(zuharTime))
+                    if (CTime.isAfter(fajrTime) && CTime.isBefore(zuharTime) || CTime.equals(fajrTime))
                     {
                         nowN.setText("Fajr");
                         upcomingN.setText("Zuhar");
                         rl1.setBackgroundResource(R.drawable.tv_greenborder);
                     }
-                    else if (CTime.isAfter(zuharTime) && CTime.isBefore(asarTime))
+                    else if (CTime.isAfter(zuharTime) && CTime.isBefore(asarTime) || CTime.equals(zuharTime))
                     {
                         nowN.setText("Zuhar");
                         upcomingN.setText("Asar");
                         rl2.setBackgroundResource(R.drawable.tv_greenborder);
                     }
-                    else if(CTime.isAfter(asarTime) && CTime.isBefore(maghribTime))
+                    else if(CTime.isAfter(asarTime) && CTime.isBefore(maghribTime) || CTime.equals(asarTime))
                     {
                         nowN.setText("Asar");
                         upcomingN.setText("Maghrib");
                         rl3.setBackgroundResource(R.drawable.tv_greenborder);
                     }
-                    else if (CTime.isAfter(maghribTime) && CTime.isBefore(ishaTime))
+                    else if (CTime.isAfter(maghribTime) && CTime.isBefore(ishaTime) || CTime.equals(maghribTime))
                     {
                         nowN.setText("Maghrib");
                         upcomingN.setText("Isha");
                         rl4.setBackgroundResource(R.drawable.tv_greenborder);
                     }
-                    else if(CTime.isAfter(ishaTime) && CTime.isBefore(fajrTime))
+                    else if(CTime.isAfter(ishaTime) && CTime.isBefore(LocalTime.parse("23:59")) || CTime.equals(ishaTime))
                     {
+                        nowN.setText("Isha");
+                        upcomingN.setText("Fajr");
+                        rl5.setBackgroundResource(R.drawable.tv_greenborder);
+                    }else {
                         nowN.setText("Isha");
                         upcomingN.setText("Fajr");
                         rl5.setBackgroundResource(R.drawable.tv_greenborder);
@@ -455,42 +484,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void getHijriDate() {
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat date = new SimpleDateFormat("dd MMMM yyyy");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        String Dates = date.format(calendar.getTime());
-//        int int_date = Integer.parseInt(Date1);
-//        SimpleDateFormat month = new SimpleDateFormat("mm");
-//        String Month1 = month.format(calendar.getTime());
-//        int int_month = Integer.parseInt(Month1);
-//        SimpleDateFormat year = new SimpleDateFormat("yyyy");
-//        String Year1 = year.format(calendar.getTime());
-//        int int_Year = Integer.parseInt(Year1);
-
-        LocalDate localDate = LocalDate.parse(Dates, dateTimeFormatter);
-        HijrahDate islamicDate = HijrahDate.from(localDate);
-        String ist = islamicDate.toString();
-        islamic_Date.setText(ist);
-
-
-
-        Log.i("TAG", "getHijriDate: abcgsa"+islamicDate);
-
-
-
-
-
-    }
-
-
-
 
 
 

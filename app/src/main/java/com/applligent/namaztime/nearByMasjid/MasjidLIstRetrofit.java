@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MasjidLIstRetrofit {
 
-    private static String BASE_URL = "https://applligent.com/projects/namaz_time/api/Masjidlist/";
+    private static String BASE_URL = "https://applligent.com/projects/namaz_time/api/";
     private static Retrofit retrofit =null;
 
     public static Retrofit getMasjidListRetrofit(){

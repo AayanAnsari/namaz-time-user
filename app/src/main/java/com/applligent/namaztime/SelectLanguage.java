@@ -9,15 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectLanguage extends AppCompatActivity {
 
-    Button btn;
+    Button engBtn,hindiBtn,urduBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_language);
 
-        btn = findViewById(R.id.english_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        engBtn = findViewById(R.id.english_btn);
+        hindiBtn = findViewById(R.id.hindi_btn);
+        urduBtn = findViewById(R.id.urdu_btn);
+
+        engBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SelectLanguage.this,MainActivity.class);

@@ -1,26 +1,35 @@
 package com.applligent.namaztime.nearByMasjid;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.applligent.namaztime.R;
 
+import java.security.AccessController;
 import java.util.List;
 
 public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.ViewHolder> {
 
     private List<MasjidListModel> masjidList;
     private Context context;
+    private FavInterface favInterface;
 
-    public MasjidListAdapter(List<MasjidListModel> masjidList, Context context) {
+    public MasjidListAdapter(List<MasjidListModel> masjidList, Context context,FavInterface favInterface) {
         this.masjidList = masjidList;
         this.context = context;
+        this.favInterface = favInterface;
     }
 
     @NonNull
@@ -32,7 +41,10 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        MasjidListModel item = masjidList.get(position);
 
+
+        String masjid_Id = masjidList.get(position).getMasjidID();
         String masjid_name = masjidList.get(position).getName();
         String fajt_time = masjidList.get(position).getFajar();
         String zuhar_time = masjidList.get(position).getZuhar();
@@ -40,6 +52,8 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
         String maghrib_time = masjidList.get(position).getMagrib();
         String isha_time = masjidList.get(position).getIsha();
         String juma_time = masjidList.get(position).getJumaTime();
+        boolean is_favourite = masjidList.get(position).getIsFavourite();
+        System.out.println("Responceforbool"+is_favourite);
 
         holder.masjidname_TV.setText(masjid_name);
         holder.fajr_time_TV.setText(fajt_time);
@@ -48,7 +62,20 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
         holder.maghrib_time_TV.setText(maghrib_time);
         holder.isha_time_TV.setText(isha_time);
         holder.juma_time_TV.setText(juma_time);
-
+        holder.Star_logo_CB.setChecked(is_favourite);
+        holder.Star_logo_CB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked)
+                {
+                    favInterface.onClickStar(item);
+                }
+                else
+                {
+                    favInterface.onClickStar(item);
+                }
+            }
+        });
 
 
 
@@ -77,6 +104,8 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
         TextView maghrib_time_TV;
         TextView isha_time_TV;
         TextView juma_time_TV;
+        CheckBox Star_logo_CB;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,8 +117,11 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
             maghrib_time_TV = itemView.findViewById(R.id.maghrib_time);
             isha_time_TV = itemView.findViewById(R.id.isha_time);
             juma_time_TV = itemView.findViewById(R.id.juma_time);
+            Star_logo_CB = itemView.findViewById(R.id.star_logo);
 
 
         }
     }
+
 }
+
