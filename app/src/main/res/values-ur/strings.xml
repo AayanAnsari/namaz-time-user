@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">نماز کا وقت</string>
+    <string name="splash_message">قریب ترین مسجد کا وقت معلوم کریں۔</string>
+    <string name="location_btn">موجودہ مقام کا استعمال کریں</string>
+    <string name="location_skip">چھوڑ دو</string>
+    <string name="save_btn">محفوظ کریں</string>
+    <string name="dd_hint">منتخب کریں</string>
+
+    <string name="select_language">زبان منتخب کریں</string>
+    <string name="english">English</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="urdu">اردو</string>
+
+    <!--    Main Activity Strings-->
+
+    <string name="location_city">مقام شہر</string>
+    <string name="now">ابھی</string>
+    <string name="upcoming">آنے والا</string>
+    <string name="fajr">فجر</string>
+    <string name="zuhar">جوہر</string>
+    <string name="asar">عصر</string>
+        <string name="maghrib">مغرب</string>
+    <string name="isha">عشاء</string>
+    <string name="near_by_masjid">قریبی مسجد</string>
+
+    <!--    Main Activity Strings-->
+
+    <!--    Menu Strings-->
+
+    <string name="change_language">زبان تبدیل کریں(Language)</string>
+    <string name="rate_app">ایپلی کیشنکو ریٹنگ دیں۔</string>
+    <string name="share_app">ایپلی کیشنکوشیئر کریں</string>
+    <string name="our_apps">ہماریایپلی کیشن</string>
+    <string name="contact_us">ہم سے رابطہ کریں </string>
+    <string name="about_app">ایپلیکشن کے بارے میں</string>
+
+    <!--    Menu Strings-->
+
+    <string name="navigation_open">نیویگیشن دراز کھولیں۔</string>
+    <string name="navigation_close">نیویگیشن دراز بند کریں۔</string>
+
+    <!--    Search Activity Strings-->
+    <string name="masjids">مسجد</string>
+
+    <!--    Alarm Screen-->
+    <string name="alarm">الارم</string>
+    <string name="title_activity_change_location">جگہ تبدیل کریں</string>
+
+    <!--    Location Sceen-->
+
+    <string name="manually_location">اپنا مقام دستی طور پر درج کریں۔</string>
+    <string name="current_location">موجودہ مقام کا استعمال کریں</string>
+
+    <!--    about app dialogue-->
+    <string name="aboutapp_dialog_heading">ایپلیکشن کے بارے میں</string>
+    <string name="aboutapp_dialog_text">Ut placet, inquam tum dicere exorsus est primum igitur, quid malum, sensu iudicari, sed ipsius honestatis decore laudandis, id ne ferae quidem exercitus quid ex ea commodi consequatur? quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut ratione intellegi posse et expedita distinctio nam libero.</string>
+    <string name="Got_it">ٹھیک ہے</string>
+
+    <!--    Contact Us Screen-->
+    <string name="contactus">ہم سے رابطہ کریں</string>
+    <string name="website">ویب سائٹ</string>
+    <string name="website_link">www.applligent.com</string>
+
+    <!--    Recycler view Strings-->
+
+    <string name="fajr_RV">فجر</string>
+    <string name="zuhar_RV">زوہر</string>
+    <string name="asar_RV">عصر</string>
+    <string name="maghrib_RV">مغرب</string>
+    <string name="isha_RV">عشا</string>
+    <string name="juma_RV">جمعہ</string>
+    <string name="data_found">شہر تلاش کریں۔</string>
+    <string name="no_Data">کوئی ڈیٹا نہیں ملا</string>
+
+
+
+</resources>

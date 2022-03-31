@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applligent.namaztime.ChangeLanguage.LangCompat;
 import com.applligent.namaztime.cityNameApi.CityAdapter;
 import com.applligent.namaztime.cityNameApi.CityApi;
 import com.applligent.namaztime.cityNameApi.CityApiInterface;
@@ -57,7 +58,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class city_name extends AppCompatActivity implements AdapterView.OnItemSelectedListener, FavInterface {
+public class city_name extends LangCompat implements AdapterView.OnItemSelectedListener, FavInterface {
 
 
     TextView nowNamaz;
@@ -411,6 +412,11 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
                         System.out.println("RESPONCE"+obj);
                         JSONObject mainObject = new JSONObject(obj);
                         JSONArray dataArray = mainObject.getJSONArray("data");
+                        if (dataArray.length()==0)
+                        {
+                            TextView NDF = findViewById(R.id.RV_textView);
+                            NDF.setText(R.string.no_Data);
+                        }
                         masjidlist = new ArrayList<MasjidListModel>();
                         for(int i=0; i<dataArray.length(); i++)
                         {
@@ -461,6 +467,7 @@ public class city_name extends AppCompatActivity implements AdapterView.OnItemSe
                     }
 
                 }
+
 
 
             }

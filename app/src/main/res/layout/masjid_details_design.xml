@@ -45,7 +45,7 @@
                     android:id="@+id/juma_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Juma "
+                    android:text="@string/juma_RV"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Fajr"
+                        android:text="@string/fajr_RV"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -132,7 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Zuhar"
+                        android:text="@string/zuhar_RV"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Asar"
+                        android:text="@string/asar_RV"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Maghrib"
+                        android:text="@string/maghrib_RV"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -220,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Isha"
+                        android:text="@string/isha_RV"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 

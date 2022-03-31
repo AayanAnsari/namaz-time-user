@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Now"
+                android:text="@string/now"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
-                android:text="Upcoming"
+                android:text="@string/upcoming"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 

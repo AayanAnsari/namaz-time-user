@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Now"
+                    android:text="@string/now"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="20dp"
-                    android:text="Upcoming"
+                    android:text="@string/upcoming"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -146,12 +146,22 @@
             android:layout_height="match_parent"
             android:layout_below="@id/RL_mosque_bg"
             android:layout_marginTop="-40dp">
+            <TextView
+                android:id="@+id/RV_textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/data_found"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/grey"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/masjiddetails_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="40dp"
+                />
 
             <ProgressBar
                 android:id="@+id/progressBar"

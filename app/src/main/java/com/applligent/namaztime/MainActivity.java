@@ -26,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.applligent.namaztime.Api.ApiClient;
+import com.applligent.namaztime.ChangeLanguage.LangCompat;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,7 +57,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends LangCompat {
 
     ProgressBar progressBar;
 
@@ -434,36 +435,36 @@ public class MainActivity extends AppCompatActivity {
 
                     if (CTime.isAfter(fajrTime) && CTime.isBefore(zuharTime) || CTime.equals(fajrTime))
                     {
-                        nowN.setText("Fajr");
-                        upcomingN.setText("Zuhar");
+                        nowN.setText(R.string.fajr);
+                        upcomingN.setText(R.string.zuhar);
                         rl1.setBackgroundResource(R.drawable.tv_greenborder);
                     }
                     else if (CTime.isAfter(zuharTime) && CTime.isBefore(asarTime) || CTime.equals(zuharTime))
                     {
-                        nowN.setText("Zuhar");
-                        upcomingN.setText("Asar");
+                        nowN.setText(R.string.zuhar);
+                        upcomingN.setText(R.string.asar);
                         rl2.setBackgroundResource(R.drawable.tv_greenborder);
                     }
                     else if(CTime.isAfter(asarTime) && CTime.isBefore(maghribTime) || CTime.equals(asarTime))
                     {
-                        nowN.setText("Asar");
-                        upcomingN.setText("Maghrib");
+                        nowN.setText(R.string.asar);
+                        upcomingN.setText(R.string.maghrib);
                         rl3.setBackgroundResource(R.drawable.tv_greenborder);
                     }
                     else if (CTime.isAfter(maghribTime) && CTime.isBefore(ishaTime) || CTime.equals(maghribTime))
                     {
-                        nowN.setText("Maghrib");
-                        upcomingN.setText("Isha");
+                        nowN.setText(R.string.maghrib);
+                        upcomingN.setText(R.string.isha);
                         rl4.setBackgroundResource(R.drawable.tv_greenborder);
                     }
                     else if(CTime.isAfter(ishaTime) && CTime.isBefore(LocalTime.parse("23:59")) || CTime.equals(ishaTime))
                     {
-                        nowN.setText("Isha");
-                        upcomingN.setText("Fajr");
+                        nowN.setText(R.string.isha);
+                        upcomingN.setText(R.string.fajr);
                         rl5.setBackgroundResource(R.drawable.tv_greenborder);
                     }else {
-                        nowN.setText("Isha");
-                        upcomingN.setText("Fajr");
+                        nowN.setText(R.string.isha);
+                        upcomingN.setText(R.string.fajr);
                         rl5.setBackgroundResource(R.drawable.tv_greenborder);
                     }
 

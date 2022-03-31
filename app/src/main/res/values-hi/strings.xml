@@ -1,2 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="app_name">नमाज टाइम</string>
+    <string name="splash_message">पास की मस्जिद का समय पता करे</string>
+    <string name="location_btn">वर्तमान स्थान का उपयोग करें</string>
+    <string name="location_skip">छोड़ें</string>
+    <string name="save_btn">सुरछित करे </string>
+    <string name="dd_hint">चुनें</string>
+
+    <string name="select_language">भाषा चुनें </string>
+    <string name="english">English</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="urdu">اردو</string>
+
+    <!--    Main Activity Strings-->
+
+    <string name="location_city">लोकेशन सिटी</string>
+    <string name="now">अब</string>
+    <string name="upcoming">आने वाला</string>
+    <string name="fajr">फज्र</string>
+    <string name="zuhar">जौहर</string>
+    <string name="asar">असर</string>
+    <string name="maghrib">मग़रिब</string>
+    <string name="isha">ईशा</string>
+    <string name="near_by_masjid">पास की मस्जिद</string>
+
+    <!--    Main Activity Strings-->
+
+    <!--    Menu Strings-->
+
+    <string name="change_language">भाषा बदलें</string>
+    <string name="rate_app">एप्लीकेशन को रेटिंग दीजिए </string>
+    <string name="share_app">एप्लीकेशन को शेयर कीजिए</string>
+    <string name="our_apps">हमारे एप्लीकेशन</string>
+    <string name="contact_us">हमसे संपर्क करें</string>
+    <string name="about_app">इस एप्लिकेशन के बारे में</string>
+
+    <!--    Menu Strings-->
+
+    <string name="navigation_open">नेविगेशन ड्रॉअर खोलें</string>
+    <string name="navigation_close">नेविगेशन ड्रॉअर बंद करें</string>
+
+    <!--    Search Activity Strings-->
+    <string name="masjids">मस्जिद</string>
+
+    <!--    Alarm Screen-->
+    <string name="alarm">अलार्म</string>
+    <string name="title_activity_change_location">स्थान बदलें</string>
+
+    <!--    Location Sceen-->
+
+    <string name="manually_location">अपना स्थान मैन्युअल रूप से दर्ज करें </string>
+    <string name="current_location">वर्तमान स्थान का उपयोग करें</string>
+
+    <!--    about app dialogue-->
+    <string name="aboutapp_dialog_heading">एप्लीकेशन के बारे में</string>
+    <string name="aboutapp_dialog_text">आजकल के समय में निबंध लिखना एक महत्वपूर्ण विषय बन चुका है, खासतौर से छात्रों के लिए। ऐसे कई अवसर आते हैं, जब आपको विभिन्न विषयों पर निबंधों की आवश्यकता होती है। निबंधों के इसी महत्व को ध्यान में रखते हुए हमने इन निबंधों को तैयार किया है। हमारे द्वारा तैयार किये गये निबंध बहुत ही क्रमबद्ध तथा सरल हैं और हमारे वेबसाइट पर छोटे तथा बड़े दोनो प्रकार की शब्द सीमाओं के निबंध उपलब्ध हैं।</string>
+    <string name="Got_it">ठीक है </string>
+
+    <!--    Contact Us Screen-->
+    <string name="contactus">हमसे संपर्क करें</string>
+    <string name="website">वेबसाइट</string>
+    <string name="website_link">www.applligent.com</string>
+
+    <!--    Recycler view Strings-->
+
+    <string name="fajr_RV">फज्र</string>
+    <string name="zuhar_RV">जौहर</string>
+    <string name="asar_RV">असर</string>
+    <string name="maghrib_RV">मग़रिब</string>
+    <string name="isha_RV">ईशा</string>
+    <string name="juma_RV">जुमा </string>
+    <string name="data_found">शहर खोजें</string>
+    <string name="no_Data">कोई डेटा नहीं मिला</string>
+
+
+</resources>

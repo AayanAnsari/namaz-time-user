@@ -7,7 +7,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SelectLanguage extends AppCompatActivity {
+import com.applligent.namaztime.ChangeLanguage.LangCompat;
+import com.applligent.namaztime.ChangeLanguage.LanguageManager;
+
+public class SelectLanguage extends LangCompat {
 
     Button engBtn,hindiBtn,urduBtn;
 
@@ -19,14 +22,27 @@ public class SelectLanguage extends AppCompatActivity {
         engBtn = findViewById(R.id.english_btn);
         hindiBtn = findViewById(R.id.hindi_btn);
         urduBtn = findViewById(R.id.urdu_btn);
+        LanguageManager lang = new LanguageManager(this);
 
-        engBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SelectLanguage.this,MainActivity.class);
-                startActivity(i);
-            }
+        engBtn.setOnClickListener(view -> {
+            lang.updateResource("en");
+            Intent i = new Intent(SelectLanguage.this,MainActivity.class);
+            startActivity(i);
         });
+
+        hindiBtn.setOnClickListener(view -> {
+            lang.updateResource("hi");
+            Intent i = new Intent(SelectLanguage.this,MainActivity.class);
+            startActivity(i);
+        });
+
+        urduBtn.setOnClickListener(view -> {
+            lang.updateResource("ur");
+            Intent i = new Intent(SelectLanguage.this,MainActivity.class);
+            startActivity(i);
+        });
+
+
 
     }
 }

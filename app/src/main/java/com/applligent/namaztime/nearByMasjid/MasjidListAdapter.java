@@ -1,6 +1,7 @@
 package com.applligent.namaztime.nearByMasjid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.applligent.namaztime.AlarmScreen;
 import com.applligent.namaztime.R;
 
 import java.security.AccessController;
@@ -76,6 +79,22 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
                 }
             }
         });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, AlarmScreen.class);
+                intent.putExtra("Fajr",fajt_time);
+                intent.putExtra("Zuhar",zuhar_time);
+                intent.putExtra("Asar",asar_time);
+                intent.putExtra("Maghrib",maghrib_time);
+                intent.putExtra("Isha",isha_time);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(intent);
+            }
+        });
 
 
 
@@ -105,7 +124,7 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
         TextView isha_time_TV;
         TextView juma_time_TV;
         CheckBox Star_logo_CB;
-
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +137,7 @@ public class MasjidListAdapter extends RecyclerView.Adapter<MasjidListAdapter.Vi
             isha_time_TV = itemView.findViewById(R.id.isha_time);
             juma_time_TV = itemView.findViewById(R.id.juma_time);
             Star_logo_CB = itemView.findViewById(R.id.star_logo);
+            cardView = itemView.findViewById(R.id.masjid_cardview);
 
 
         }
