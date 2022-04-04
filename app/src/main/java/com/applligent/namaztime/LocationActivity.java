@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applligent.namaztime.ChangeLanguage.LangCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationActivity extends AppCompatActivity {
+public class LocationActivity extends LangCompat {
 
     Button toChooseLocaation;
     TextView skip;
@@ -57,7 +58,7 @@ public class LocationActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LocationActivity.this, SelectLanguage.class);
+                Intent i = new Intent(LocationActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });

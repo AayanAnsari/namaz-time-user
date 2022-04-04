@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -35,18 +36,35 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        boolean first = getSharedPreferences("myPref",MODE_PRIVATE).getBoolean("firstBoot",true);
+
+        if (first){
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashScreen.this,SelectLanguage.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            },2000);
+        }
+        else
+        {
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent1 = new Intent(SplashScreen.this,MainActivity.class);
+                    startActivity(intent1);
+                    finish();
+
+                }
+            },2000);
+        }
 
 
 
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreen.this,LocationActivity.class);
-                startActivity(intent);
-                finish();
 
-            }
-        },2000);
 
 
 

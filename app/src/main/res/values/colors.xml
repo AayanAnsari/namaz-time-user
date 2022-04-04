@@ -12,4 +12,5 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="grey">#8c8c8c</color>
     <color name="link_blue">#1491FF</color>
+    <color name="Red">#F80303</color>
 </resources>

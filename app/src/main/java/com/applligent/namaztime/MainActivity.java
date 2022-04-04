@@ -1,9 +1,10 @@
 package com.applligent.namaztime;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.util.IslamicCalendar;
-import android.icu.util.TimeZone;
 import android.icu.util.ULocale;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,12 +35,19 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
+import net.time4j.SystemClock;
+import net.time4j.calendar.HijriCalendar;
+import net.time4j.format.expert.ChronoFormatter;
+import net.time4j.format.expert.PatternType;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.chrono.HijrahChronology;
@@ -47,8 +55,10 @@ import java.time.chrono.HijrahDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -81,6 +91,7 @@ public class MainActivity extends LangCompat {
     RelativeLayout rl3;
     RelativeLayout rl4;
     RelativeLayout rl5;
+    TextView timeLeft,timeGone;
 
     TextView monthAndYear,currentDateTV;
     TextView islamic_Date;
@@ -216,6 +227,8 @@ public class MainActivity extends LangCompat {
 
         nowN = findViewById(R.id.now_namaz_name);
         upcomingN = findViewById(R.id.upcoming_namaz_name);
+        timeGone = findViewById(R.id.timeGone);
+        timeLeft = findViewById(R.id.timeLeft);
 
         rl1 = findViewById(R.id.RL_1);
         rl2 = findViewById(R.id.RL_2);
@@ -241,7 +254,9 @@ public class MainActivity extends LangCompat {
         monthAndYear.setText(MY);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void getHijriDate() {
+
 
         UmmalquraCalendar cal = new UmmalquraCalendar();
         int islYear = cal.get(Calendar.YEAR);
@@ -251,6 +266,7 @@ public class MainActivity extends LangCompat {
         SimpleDateFormat myDateFormat = new SimpleDateFormat("",Locale.ENGLISH);
         myDateFormat.setCalendar(cal);
 
+        myDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
         myDateFormat.applyPattern("dd");
         String myIslamicDt = myDateFormat.format(cal.getTime());
 
@@ -302,6 +318,7 @@ public class MainActivity extends LangCompat {
 
         call.enqueue(new Callback<Object>() {
 
+            @SuppressLint("ResourceAsColor")
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -333,6 +350,11 @@ public class MainActivity extends LangCompat {
                             fajrTV.setText(h1 + ":" + m1 + " AM");
                         }
                     }
+
+
+                    String sunrise_str = finalObject.getString("Sunrise");
+                    sunrise_str = sunrise_str.replaceAll("[ (IST)]","");
+
 
                     String zuhar_str = finalObject.getString("Dhuhr");
                     zuhar_str = zuhar_str.replaceAll("[ (IST)]","");
@@ -413,10 +435,12 @@ public class MainActivity extends LangCompat {
 
 
                     LocalTime fajrTime = LocalTime.parse(fajr_str);
+                    LocalTime sunriseTime = LocalTime.parse(sunrise_str);
                     LocalTime zuharTime = LocalTime.parse(zuhar_str);
                     LocalTime asarTime = LocalTime.parse(asar_str);
                     LocalTime maghribTime = LocalTime.parse(maghrib_str);
                     LocalTime ishaTime = LocalTime.parse(isha_str);
+                    LocalTime midNIGHT = LocalTime.parse("23:59");
 
 
 
@@ -427,44 +451,159 @@ public class MainActivity extends LangCompat {
                     LocalTime CTime = LocalTime.parse(CurrentTime);
                     Log.i("TAG", "onResponse: bgfh"+"CT -"+CTime);
 
+//                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//                    Date CTforCompare = sdf.parse(String.valueOf(CTime));
+//                    Date time2 = sdf.parse(asar_str);
+//
+//                    long diff = CTforCompare.getTime() - time2.getTime();
+//
+//                    int sec  = (int)(diff/ 1000) % 60 ;
+//                    int min  = (int)((diff/ (1000*60)) % 60);
+//                    int hr   = (int)((diff/ (1000*60*60)) % 24);
+//
+//                    Log.i("TAG", "onResponse: nbsanbs"+hr+":"+min);
 
-                    String[] AA = CurrentTime.split(":");
-                    int CurrentH = Integer.parseInt(AA[0]);
-                    int CurrentM = Integer.parseInt(AA[1]);
-                    Log.i("TAG", "CurrentNamazTime: qrres"+CurrentM);
 
-                    if (CTime.isAfter(fajrTime) && CTime.isBefore(zuharTime) || CTime.equals(fajrTime))
+
+
+
+
+
+
+                    if (CTime.isAfter(fajrTime) && CTime.isBefore(sunriseTime) || CTime.equals(fajrTime))
                     {
                         nowN.setText(R.string.fajr);
                         upcomingN.setText(R.string.zuhar);
                         rl1.setBackgroundResource(R.drawable.tv_greenborder);
+
+                        getCurrentAndUpcoming(fajr_str,zuhar_str,CTime);
+                    }
+                    else if (CTime.isAfter(sunriseTime) && CTime.isBefore(zuharTime) || CTime.equals(sunriseTime))
+                    {
+                        upcomingN.setText(R.string.zuhar);
+                        rl2.setBackgroundResource(R.drawable.tv_greenborder);
+
+                        timeGone.setVisibility(View.INVISIBLE);
+                        getCurrentAndUpcoming(fajr_str,zuhar_str,CTime);
                     }
                     else if (CTime.isAfter(zuharTime) && CTime.isBefore(asarTime) || CTime.equals(zuharTime))
                     {
                         nowN.setText(R.string.zuhar);
                         upcomingN.setText(R.string.asar);
                         rl2.setBackgroundResource(R.drawable.tv_greenborder);
+
+                        getCurrentAndUpcoming(zuhar_str,asar_str,CTime);
                     }
                     else if(CTime.isAfter(asarTime) && CTime.isBefore(maghribTime) || CTime.equals(asarTime))
                     {
                         nowN.setText(R.string.asar);
                         upcomingN.setText(R.string.maghrib);
                         rl3.setBackgroundResource(R.drawable.tv_greenborder);
+
+                        getCurrentAndUpcoming(asar_str,maghrib_str,CTime);
                     }
                     else if (CTime.isAfter(maghribTime) && CTime.isBefore(ishaTime) || CTime.equals(maghribTime))
                     {
                         nowN.setText(R.string.maghrib);
                         upcomingN.setText(R.string.isha);
                         rl4.setBackgroundResource(R.drawable.tv_greenborder);
+
+                        getCurrentAndUpcoming(maghrib_str,isha_str,CTime);
                     }
-                    else if(CTime.isAfter(ishaTime) && CTime.isBefore(LocalTime.parse("23:59")) || CTime.equals(ishaTime))
-                    {
+//                    else if(CTime.isAfter(ishaTime) && CTime.isBefore(IshaToFajr) || CTime.equals(ishaTime))
+//                    {
+//                        nowN.setText(R.string.isha);
+//                        upcomingN.setText(R.string.fajr);
+//                        rl5.setBackgroundResource(R.drawable.tv_greenborder);
+//                    }
+                    else {
                         nowN.setText(R.string.isha);
                         upcomingN.setText(R.string.fajr);
-                        rl5.setBackgroundResource(R.drawable.tv_greenborder);
-                    }else {
-                        nowN.setText(R.string.isha);
-                        upcomingN.setText(R.string.fajr);
+
+                        SimpleDateFormat formattedString = new SimpleDateFormat("HH:mm");
+                        Date CTforCompare = formattedString.parse(String.valueOf(CTime));
+                        String midNightString = ("23:59");
+                        String midNight1String = ("00:01");
+
+                        Date midNight = formattedString.parse(midNightString);
+//                        Log.i("TAG", "onResponse: fasdas"+midNight);
+                        Date midNight1 = formattedString.parse(midNight1String);
+//                        Log.i("TAG", "onResponse: fefdsa"+midNight1);
+                        Date fajrMN = formattedString.parse(fajr_str);
+                        Date ishaMN = formattedString.parse(isha_str);
+
+                        if (CTime.isAfter(ishaTime) && CTime.isBefore(midNIGHT) )
+                        {
+                            long diffCTtoMidnight = midNight.getTime()-CTforCompare.getTime();
+                            Log.i("TAG", "onResponse: abcdefgh"+diffCTtoMidnight);
+
+                            long a = 86400000;
+
+                            long diffMidnightToFajr = midNight.getTime()-fajrMN.getTime();
+                            diffMidnightToFajr = (a-diffMidnightToFajr);
+                            Log.i("TAG", "onResponse: abcdefg1"+diffMidnightToFajr);
+//
+                            long exactDifference = (diffCTtoMidnight + diffMidnightToFajr);
+                            int min  = (int)((exactDifference/ (1000*60)) % 60);
+                            int hr   = (int)((exactDifference/ (1000*60*60)) % 24);
+                            String mins = Integer.toString(min);
+                            String hrs = Integer.toString(hr);
+                            String finalR = (hrs+"h"+":"+mins+"min");
+
+                            Log.i("TAG", "onResponse: fsdfad"+finalR);
+                            timeLeft.setText(finalR);
+                            timeLeft.setTextColor(getResources().getColor(R.color.green));
+
+
+//                            red---
+                            long ishaToCT = CTforCompare.getTime() - ishaMN.getTime();
+                            int min2  = (int)((ishaToCT/ (1000*60)) % 60);
+                            int hr2   = (int)((ishaToCT/ (1000*60*60)) % 24);
+                            String mins2 = Integer.toString(min2);
+                            String hrs2 = Integer.toString(hr2);
+                            String finalR2 = (hrs2+"h"+":"+mins2+"min");
+                            timeGone.setText(finalR2);
+                            timeGone.setTextColor(getResources().getColor(R.color.Red));
+                        }
+                        else
+                        {
+                            long diffIshaToMidNight = midNight.getTime() - ishaMN.getTime();
+
+                            GregorianCalendar now = new GregorianCalendar();
+                            GregorianCalendar start = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                            long midNightToCT = now.getTimeInMillis() - start.getTimeInMillis();
+
+
+                            long diffIshaToCT = diffIshaToMidNight + midNightToCT;
+                            int min  = (int)((diffIshaToCT/ (1000*60)) % 60);
+                            int hr   = (int)((diffIshaToCT/ (1000*60*60)) % 24);
+                            String mins = Integer.toString(min);
+                            String hrs = Integer.toString(hr);
+                            String finalR = (hrs+"h"+":"+mins+"min");
+                            Log.i("TAG", "onResponse: sadq"+finalR);
+                            timeGone.setText(finalR);
+                            timeGone.setTextColor(getResources().getColor(R.color.Red));
+
+//                            Upcoming
+                            long a = 86400000;
+                            long diffMidnightToFajr = midNight.getTime()-fajrMN.getTime();
+                            diffMidnightToFajr = (a-diffMidnightToFajr);
+
+                            GregorianCalendar nowUpcoming = new GregorianCalendar();
+                            GregorianCalendar startUpcoming = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                            long ms = nowUpcoming.getTimeInMillis() - startUpcoming.getTimeInMillis();
+
+                            long leftForFajr = diffMidnightToFajr - ms;
+                            int min2  = (int)((leftForFajr/ (1000*60)) % 60);
+                            int hr2   = (int)((leftForFajr/ (1000*60*60)) % 24);
+                            String mins2 = Integer.toString(min2);
+                            String hrs2 = Integer.toString(hr2);
+                            String finalR2 = (hrs2+"h"+":"+mins2+"min");
+                            timeLeft.setText(finalR2);
+                            timeLeft.setTextColor(getResources().getColor(R.color.green));
+                        }
+
+
                         rl5.setBackgroundResource(R.drawable.tv_greenborder);
                     }
 
@@ -476,7 +615,38 @@ public class MainActivity extends LangCompat {
 
             }
 
+            private void getCurrentAndUpcoming(String firstN, String secondN, LocalTime CurrTime) throws ParseException {
 
+                String firstNamaz = firstN;
+                String secodNamaz = secondN;
+                LocalTime currentTime = CurrTime;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date CTforCompare = sdf.parse(String.valueOf(currentTime));
+                Date firstStart = sdf.parse(firstNamaz);
+                long firstDiff = CTforCompare.getTime()-firstStart.getTime();
+
+                int min  = (int)((firstDiff/ (1000*60)) % 60);
+                int hr   = (int)((firstDiff/ (1000*60*60)) % 24);
+                String mins = Integer.toString(min);
+                String hrs = Integer.toString(hr);
+                String finalR = (hrs+"h"+":"+mins+"min");
+                timeGone.setText(finalR);
+                timeGone.setTextColor(Color.RED);
+//
+//                Log.i("TAG", "onResponse: rwer"+finalR);
+//
+                Date secondStart = sdf.parse(secodNamaz);
+                long secondDiff = secondStart.getTime()-CTforCompare.getTime();
+                int Smin  = (int)((secondDiff/ (1000*60)) % 60);
+                int Shr   = (int)((secondDiff/ (1000*60*60)) % 24);
+                String Smins = Integer.toString(Smin);
+                String Shrs = Integer.toString(Shr);
+                String finalM = (Shrs+"h"+":"+Smins+"min");
+                timeLeft.setText(finalM);
+                timeLeft.setTextColor(getResources().getColor(R.color.green));
+
+            }
 
 
             @Override

@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applligent.namaztime.ChangeLanguage.LangCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +38,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class Change_Location extends AppCompatActivity {
+public class Change_Location extends LangCompat {
 
     ImageView close_Btn;
     RelativeLayout setCurrentLocation;

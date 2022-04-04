@@ -20,11 +20,12 @@
         <entry key="app/src/main/res/drawable/track.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/tv_border.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/tv_greenborder.xml" value="0.1465" />
+        <entry key="app/src/main/res/drawable/white_bg.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/white_button.xml" value="0.25" />
         <entry key="app/src/main/res/layout/about_app_dialogue.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_alarm_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_change_location.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_city_name.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_city_name.xml" value="0.29444444444444445" />
         <entry key="app/src/main/res/layout/activity_contact_us.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_location.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />

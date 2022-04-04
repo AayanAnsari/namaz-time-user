@@ -71,15 +71,37 @@
                     android:layout_below="@id/now_namaz"
                     android:text="----"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/upcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/now_namaz_name2"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/upcoming"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/upcoming_namaz_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/upcoming"
+                    android:text="----"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/now_namaz_name2"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="20dp"
                     android:text="14"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -88,40 +110,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/date"
+                    android:layout_alignParentRight="true"
                     android:text="June 2021"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/upcoming"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/upcoming"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/upcoming_namaz_name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/upcoming"
-                    android:layout_alignParentRight="true"
-                    android:text="----"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/islamic_date1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/upcoming_namaz_name2"
+                    android:layout_below="@id/full_date"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="20dp"
                     android:text="3"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/islamic_fulldate1"
@@ -212,8 +216,9 @@
             <Spinner
                 android:id="@+id/CitySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:focusable="false"
+                android:padding="0dp"
                 android:prompt="@string/dd_hint" />
 
         </RelativeLayout>

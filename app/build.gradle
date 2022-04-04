@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation 'com.github.msarhan:ummalqura-calendar:1.1.7'
 
+    implementation group: 'net.time4j', name: 'time4j-android', version: '4.8-2021a'
 }

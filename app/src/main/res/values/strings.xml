@@ -10,6 +10,7 @@
     <string name="english">English</string>
     <string name="hindi">हिन्दी</string>
     <string name="urdu">اردو</string>
+    <string name="pref_previously_started">previouslyStarted</string>
 
     <!--    Main Activity Strings-->
 
@@ -74,5 +75,6 @@
     <string name="juma_RV">Juma</string>
     <string name="data_found">Search City</string>
     <string name="no_Data">No Data Found</string>
+
 
 </resources>
